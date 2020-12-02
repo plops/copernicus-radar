@@ -4,15 +4,16 @@ all: vis
 # -Og -g3 -ggdb 
 # -Wno-error=inaccessible-base
 # -Wshadow -Wdouble-promotion -fno-common -Wconversion 
-CXXFLAGS=-Og -ggdb3 \
--std=gnu++17 \
--Wall -Wextra -Werror -Wfatal-errors\
+CXXFLAGS=-Og -ggdb3 -pipe \
+-std=gnu++2a \
+-march=native -mtune=native \
+-Wall -Wextra -Werror -Wfatal-errors \
 -ffunction-sections -fdata-sections \
 -Wno-error=unused-variable \
 -Wno-error=unused-parameter \
 -Wno-error=double-promotion \
--pipe \
--march=native -mtune=native 
+-Wno-error=catch-value= \
+-Wno-error=sign-compare
 
 LDFLAGS= \
 -L/usr/local/lib \
@@ -30,7 +31,7 @@ depend: .depend
 
 include .depend
 
-all: server client
+all: vis
 
 %.o: %.cpp globals.h
 	$(CXX) -c -o $@ $< $(CXXFLAGS)

@@ -3,6 +3,7 @@
 #define GLOBALS_H
 
 #include <chrono>
+#include <thread>
 struct State {
   typeof(std::chrono::high_resolution_clock::now().time_since_epoch().count())
       _start_time;

@@ -46,20 +46,24 @@ int init_decode_packet_type_a_or_b(int packet_idx,
                 (((0x10000) * (((0xFF) & (header[53]))))))));
   auto data = ((offset) + (static_cast<uint8_t *>(state._mmap_data)));
   assert((((0) == (baq_mode))));
-  std::setprecision(3);
-  (std::cout) << (std::setw(10))
-              << (((std::chrono::high_resolution_clock::now()
-                        .time_since_epoch()
-                        .count()) -
-                   (state._start_time)))
-              << (" ") << (__FILE__) << (":") << (__LINE__) << (" ")
-              << (__func__) << (" ") << ("") << (" ") << (std::setw(8))
-              << (" packet_idx=") << (packet_idx) << (std::setw(8))
-              << (" baq_mode=") << (baq_mode) << (std::setw(8))
-              << (" baq_block_length=") << (baq_block_length) << (std::setw(8))
-              << (" data_delay_us=") << (data_delay_us) << (std::setw(8))
-              << (" data_delay=") << (data_delay) << (std::setw(8))
-              << (" number_of_quads=") << (number_of_quads) << (std::endl);
+
+  (std::cout)
+      << (std::setw(10))
+      << (std::chrono::high_resolution_clock::now().time_since_epoch().count())
+      << (" ") << (std::this_thread::get_id()) << (" ") << (__FILE__) << (":")
+      << (__LINE__) << (" ") << (__func__) << (" ") << ("") << (" ")
+      << (std::setw(8)) << (" packet_idx='") << (packet_idx) << ("::")
+      << (typeid(packet_idx).name()) << ("'") << (std::setw(8))
+      << (" baq_mode='") << (baq_mode) << ("::") << (typeid(baq_mode).name())
+      << ("'") << (std::setw(8)) << (" baq_block_length='")
+      << (baq_block_length) << ("::") << (typeid(baq_block_length).name())
+      << ("'") << (std::setw(8)) << (" data_delay_us='") << (data_delay_us)
+      << ("::") << (typeid(data_delay_us).name()) << ("'") << (std::setw(8))
+      << (" data_delay='") << (data_delay) << ("::")
+      << (typeid(data_delay).name()) << ("'") << (std::setw(8))
+      << (" number_of_quads='") << (number_of_quads) << ("::")
+      << (typeid(number_of_quads).name()) << ("'") << (std::endl)
+      << (std::flush);
   sequential_bit_t s;
   init_sequential_bit_function(
       &s, ((state._header_offset[packet_idx]) + (62) + (6)));

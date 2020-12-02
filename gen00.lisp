@@ -217,6 +217,43 @@
 		 "std::endl"))))
     (defun logprint (msg &optional rest)
       `(do0
+	" "
+	#-nolog
+	(do0
+					;("std::setprecision" 3)
+	 (<< "std::cout"
+	     ;;"std::endl"
+	     ("std::setw" 10)
+	     (dot ("std::chrono::high_resolution_clock::now")
+		  (time_since_epoch)
+		  (count))
+					;,(g `_start_time)
+	     
+	     (string " ")
+	     ("std::this_thread::get_id")
+	     (string " ")
+	     __FILE__
+	     (string ":")
+	     __LINE__
+	     (string " ")
+	     __func__
+	     (string " ")
+	     (string ,msg)
+	     (string " ")
+	     ,@(loop for e in rest appending
+		    `(("std::setw" 8)
+					;("std::width" 8)
+		      (string ,(format nil " ~a='" (emit-c :code e)))
+		      ,e
+		      (string "::")
+		      (dot (typeid ,e)
+			   (name))
+		      (string "'")))
+	     "std::endl"
+	     "std::flush"))))
+    #+nile
+    (defun logprint (msg &optional rest)
+      `(do0
 	#-nolog
 	(do0
 	 ("std::setprecision" 3)
@@ -348,10 +385,11 @@
 					;(vkprint "main" )
 		(setf ,(g `_filename)
 		      (string
-		       "/media/sdb4/sar/sao_paulo/s1b-s6-raw-s-vv-20200824t214314-20200824t214345-023070-02bce0.dat"
+		       "/home/martin/s1a-s3-raw-s-hh-20201024t213552-20201024t213617-034943-041338.dat"
+		       ; "/media/sdb4/sar/sao_paulo/s1b-s6-raw-s-vv-20200824t214314-20200824t214345-023070-02bce0.dat"
 		       
-		       ;"/media/sdb4/sar/singapore/S1A_IW_RAW__0SDV_20200413T224752_20200413T224825_032115_03B64B_FDA8.SAFE/s1a-iw-raw-s-vv-20200413t224752-20200413t224825-032115-03b64b.dat" ;; singapore
-		       ; "/home/martin/Downloads/s1b-s3-raw-s-vv-20191212t150115-20191212t150141-019333-024829.dat" ;; stripmap with 2 islands https://scihub.copernicus.eu/dhus/odata/v1/Products(%2742030b2d-07d3-4fe0-9104-2ba800de184d%27)/Nodes(%27S1B_S3_RAW__0SDV_20191212T150115_20191212T150141_019333_024829_9492.SAFE%27)/Nodes(%27s1b-s3-raw-s-vv-20191212t150115-20191212t150141-019333-024829.dat%27)/$value
+					;"/media/sdb4/sar/singapore/S1A_IW_RAW__0SDV_20200413T224752_20200413T224825_032115_03B64B_FDA8.SAFE/s1a-iw-raw-s-vv-20200413t224752-20200413t224825-032115-03b64b.dat" ;; singapore
+					; "/home/martin/Downloads/s1b-s3-raw-s-vv-20191212t150115-20191212t150141-019333-024829.dat" ;; stripmap with 2 islands https://scihub.copernicus.eu/dhus/odata/v1/Products(%2742030b2d-07d3-4fe0-9104-2ba800de184d%27)/Nodes(%27S1B_S3_RAW__0SDV_20191212T150115_20191212T150141_019333_024829_9492.SAFE%27)/Nodes(%27s1b-s3-raw-s-vv-20191212t150115-20191212t150141-019333-024829.dat%27)/$value
 		       
 		       ;;"/home/martin/Downloads/s1a-iw-raw-s-vv-20191205t192200-20191205t192233-030217-03743d.dat" ;; australia retro reflectors ; https://scihub.copernicus.eu/dhus/odata/v1/Products(%27a43207a0-c3bb-47e2-a819-0885468cf16f%27)/Nodes(%27S1A_IW_RAW__0SDV_20191205T192200_20191205T192233_030217_03743D_C3C8.SAFE%27)/Nodes(%27s1a-iw-raw-s-vv-20191205t192200-20191205t192233-030217-03743d.dat%27)/$value
 					; "/home/martin/Downloads/s1b-iw-raw-s-vv-20191127t171630-20191127t171702-019116-024140.dat" ;; north sea wind park and strong reflector ;; https://scihub.copernicus.eu/dhus/odata/v1/Products(%27f4698f73-c40c-4de5-8852-cb11ad11fd1f%27)/Nodes(%27S1B_IW_RAW__0SDV_20191127T171630_20191127T171702_019116_024140_5DFA.SAFE%27)/Nodes(%27s1b-iw-raw-s-vv-20191127t171630-20191127t171702-019116-024140.dat%27)/$value
@@ -2037,7 +2075,7 @@
 		    " "
 		    "#define GLOBALS_H"
 		    " "
-		    
+		    (include <thread>)
 		    
 		    ,(emit-globals)
 		    " "
