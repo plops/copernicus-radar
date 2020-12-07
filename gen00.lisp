@@ -340,6 +340,7 @@
 		  ,@(loop for e in l collect
 			 (destructuring-bind (name type &optional value) e
 			   `(,name ,type))))))))
+    (defparameter *module-count* 0)
     (defun define-module (args)
       "each module will be written into a c file with module-name. the global-parameters the module will write to will be specified with their type in global-parameters. a file global.h will be written that contains the parameters that were defined in all modules. global parameters that are accessed read-only or have already been specified in another module need not occur in this list (but can). the prototypes of functions that are specified in a module are collected in functions.h. i think i can (ab)use gcc's warnings -Wmissing-declarations to generate this header. i split the code this way to reduce the amount of code that needs to be recompiled during iterative/interactive development. if the module-name contains vulkan, include vulkan headers. if it contains glfw, include glfw headers."
       (destructuring-bind (module-name global-parameters module-code) args
@@ -354,22 +355,26 @@
 		  ,(let ((l `((0 (0 1 2   4 5 6   8))
 			      (1 (0 1             8))
 			      (2 (0   2           8))
-			      (3 (    2 3     6 7))
-			      (4 (0 1 2 3 4 5 6 7))
-			      (5 (0 1 2 3 4 5 6 7))
-			      (6 (0 1 2 3 4 5 6 7))
-			      (7 (0 1 2 3 4 5 6 7))
-			      (8 (0 1 2 3 4 5 6 7)))))
+			      (3 (    2 3     6 7 8))
+			      (4 (0   2 3 4   6   8))
+			      (5 (0   2   4 5 6   8))
+			      (6 (    2       6   8))
+			      (7 (0   2   4   6 7 8))
+			      (8 (    2       6   8)))))
 		     `(do0
-		      ,@(loop for e in (directory "source/*.hpp")
-			      collect
-			      (multiple-value-bind (matches regs)
-				  (cl-ppcre:scan-to-strings "copernicus_(\\d\\d)_.*" (file-namestring (elt (directory "source/co*.hpp") 1)))
-				(read-from-string (elt regs 0)))
-			      `(include ,(file-namestring e)))))
+		       ,@(remove-if
+			  #'null
+			  (loop for e in (directory "source/*.hpp")
+				collect
+				(let ((n (multiple-value-bind (matches regs)
+					     (cl-ppcre:scan-to-strings "copernicus_(\\d\\d)_.*" (file-namestring e))
+					   (read-from-string (elt regs 0)))))
+				  (when (member n (elt l *module-count*))
+				    `(include ,(file-namestring e))))))))
 		  " "
 		  )
 		header)
+	  (incf *module-count*)
 	  (unless (cl-ppcre:scan "main" (string-downcase (format nil "~a" module-name)))
 	    (push `(do0 "extern State state;")
 		  header))
@@ -2260,5 +2265,6 @@
     ;; we need to force clang-format to always have the return type in the same line as the function: PenaltyReturnTypeOnItsOwnLine
 					;(sb-ext:run-program "/bin/sh" `("gen_proto.sh"))
     #+nil (sb-ext:run-program "/usr/bin/make" `("-C" "source" "-j12" "proto2.h"))))
+
 
 
