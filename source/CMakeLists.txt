@@ -1,0 +1,6 @@
+cmake_minimum_required( VERSION 3.4 )
+project( mytest LANGUAGES CXX )
+set( CMAKE_VERBOSE_MAKEFILE ON )
+set( CMAKE_CXX_STANDARD 14 )
+set( SRCS vis_00_base.cpp )
+add_executable( mytest ${SRCS} )
