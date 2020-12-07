@@ -15,6 +15,7 @@
 #include "copernicus_08_demangle.hpp"
 
 extern State state;
+#include "utils.h"
 #include <cassert>
 inline int get_data_type_a_or_b(sequential_bit_t *s) {
   return ((((0x200) * (get_sequential_bit(s)))) +

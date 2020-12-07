@@ -16,6 +16,7 @@
 
 extern State state;
 #include <cxxabi.h>
+#include <string>
 std::string demangle(const std::string name) {
   auto status = -4;
   std::unique_ptr<char, void (*)(void *)> res{

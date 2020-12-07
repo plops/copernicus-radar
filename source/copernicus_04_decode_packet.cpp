@@ -15,6 +15,7 @@
 #include "copernicus_08_demangle.hpp"
 
 extern State state;
+#include "utils.h"
 #include <cassert>
 #include <cmath>
 

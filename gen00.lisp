@@ -945,7 +945,8 @@
 	 (do0
 	  (do0
 	   (include <cassert>
-		    <cmath>)
+		    <cmath>
+		    "utils.h")
 	   ,(emit-utils :code
 			`(do0
 			  (include <complex>)
@@ -1482,6 +1483,7 @@
 	 (do0
 	  (do0
 	   (include <cassert>)
+	   (include "utils.h")
 	   (defun get_data_type_a_or_b (s)
 	     (declare (type sequential_bit_t* s)
 		      (values "inline int"))
@@ -1719,7 +1721,8 @@
        ()
        (do0
 	(include <cassert>
-		 <cmath>)
+		 <cmath>
+		 "utils.h")
 	
 	  	  
 	;; i need tables for: A{3,4,5}[thidx], NRL{3,4,5}[mcode]
@@ -2039,7 +2042,8 @@
       `(demangle
 	()
 	(do0
-	 (include <cxxabi.h>)
+	 (include <cxxabi.h>
+		  <string>)
 	 (defun demangle (name)
 		 (declare (type ;"const char*"
 			   "const std::string"

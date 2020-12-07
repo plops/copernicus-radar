@@ -15,6 +15,7 @@
 #include "copernicus_08_demangle.hpp"
 
 extern State state;
+#include "utils.h"
 #include <cassert>
 #include <cmath>
 extern const std::array<const float, 256> table_sf;
