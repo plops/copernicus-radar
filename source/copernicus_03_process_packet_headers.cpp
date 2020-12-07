@@ -7,7 +7,6 @@
 #include "copernicus_02_collect_packet_headers.hpp"
 #include "copernicus_03_process_packet_headers.hpp"
 #include "copernicus_06_decode_sub_commutated_data.hpp"
-#include "copernicus_07_decode_type_c_packet.hpp"
 #include "copernicus_08_demangle.hpp"
 
 extern State state;
