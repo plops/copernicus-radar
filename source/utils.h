@@ -7,6 +7,8 @@
 #include <iostream>
 #include <vector>
 
+#include "copernicus_08_demangle.hpp"
+
 #include <complex>
 enum { MAX_NUMBER_QUADS = 52378 }; // page 55
 struct sequential_bit_t {

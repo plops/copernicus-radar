@@ -1,11 +1,6 @@
 #ifndef COPERNICUS_04_DECODE_PACKET_H
 #define COPERNICUS_04_DECODE_PACKET_H
-#include "utils.h"
-;
-#include "globals.h"
-;
-#include "proto2.h"
-;
+// header;
 #include <cassert>
 #include <cmath>
 ;

@@ -1,11 +1,6 @@
 #ifndef COPERNICUS_07_DECODE_TYPE_C_PACKET_H
 #define COPERNICUS_07_DECODE_TYPE_C_PACKET_H
-#include "utils.h"
-;
-#include "globals.h"
-;
-#include "proto2.h"
-;
+// header;
 #include <cassert>
 #include <cmath>
 ;

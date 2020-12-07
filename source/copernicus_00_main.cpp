@@ -1,9 +1,18 @@
+// implementation
 
 #include "utils.h"
 
 #include "globals.h"
 
-#include "proto2.h"
+#include "copernicus_00_main.hpp"
+#include "copernicus_01_mmap.hpp"
+#include "copernicus_02_collect_packet_headers.hpp"
+#include "copernicus_03_process_packet_headers.hpp"
+#include "copernicus_04_decode_packet.hpp"
+#include "copernicus_05_decode_type_ab_packet.hpp"
+#include "copernicus_06_decode_sub_commutated_data.hpp"
+#include "copernicus_07_decode_type_c_packet.hpp"
+#include "copernicus_08_demangle.hpp"
 
 #include <cassert>
 #include <chrono>
@@ -57,16 +66,17 @@ int main() {
                   << (" ") << (std::this_thread::get_id()) << (" ")
                   << (__FILE__) << (":") << (__LINE__) << (" ") << (__func__)
                   << (" ") << ("cal") << (" ") << (std::setw(8)) << (" cal_p='")
-                  << (cal_p) << ("::") << (typeid(cal_p).name()) << ("'")
-                  << (std::setw(8)) << (" cal_type='") << (cal_type) << ("::")
-                  << (typeid(cal_type).name()) << ("'") << (std::setw(8))
-                  << (" number_of_quads='") << (number_of_quads) << ("::")
-                  << (typeid(number_of_quads).name()) << ("'") << (std::setw(8))
-                  << (" baq_mode='") << (baq_mode) << ("::")
-                  << (typeid(baq_mode).name()) << ("'") << (std::setw(8))
-                  << (" test_mode='") << (test_mode) << ("::")
-                  << (typeid(test_mode).name()) << ("'") << (std::endl)
-                  << (std::flush);
+                  << (cal_p) << ("::") << (demangle(typeid(cal_p).name()))
+                  << ("'") << (std::setw(8)) << (" cal_type='") << (cal_type)
+                  << ("::") << (demangle(typeid(cal_type).name())) << ("'")
+                  << (std::setw(8)) << (" number_of_quads='")
+                  << (number_of_quads) << ("::")
+                  << (demangle(typeid(number_of_quads).name())) << ("'")
+                  << (std::setw(8)) << (" baq_mode='") << (baq_mode) << ("::")
+                  << (demangle(typeid(baq_mode).name())) << ("'")
+                  << (std::setw(8)) << (" test_mode='") << (test_mode) << ("::")
+                  << (demangle(typeid(test_mode).name())) << ("'")
+                  << (std::endl) << (std::flush);
     } else {
       (map_ele[ele]) += (number_of_quads);
     }
@@ -83,9 +93,10 @@ int main() {
                 << (" ") << (std::this_thread::get_id()) << (" ") << (__FILE__)
                 << (":") << (__LINE__) << (" ") << (__func__) << (" ")
                 << ("map_ele") << (" ") << (std::setw(8)) << (" cal_type='")
-                << (cal_type) << ("::") << (typeid(cal_type).name()) << ("'")
-                << (std::setw(8)) << (" number_of_cal='") << (number_of_cal)
-                << ("::") << (typeid(number_of_cal).name()) << ("'")
+                << (cal_type) << ("::") << (demangle(typeid(cal_type).name()))
+                << ("'") << (std::setw(8)) << (" number_of_cal='")
+                << (number_of_cal) << ("::")
+                << (demangle(typeid(number_of_cal).name())) << ("'")
                 << (std::endl) << (std::flush);
   };
   for (auto &sig : map_sig) {
@@ -99,9 +110,10 @@ int main() {
                 << (" ") << (std::this_thread::get_id()) << (" ") << (__FILE__)
                 << (":") << (__LINE__) << (" ") << (__func__) << (" ")
                 << ("map_sig") << (" ") << (std::setw(8)) << (" sig_type='")
-                << (sig_type) << ("::") << (typeid(sig_type).name()) << ("'")
-                << (std::setw(8)) << (" number_of_sig='") << (number_of_sig)
-                << ("::") << (typeid(number_of_sig).name()) << ("'")
+                << (sig_type) << ("::") << (demangle(typeid(sig_type).name()))
+                << ("'") << (std::setw(8)) << (" number_of_sig='")
+                << (number_of_sig) << ("::")
+                << (demangle(typeid(number_of_sig).name())) << ("'")
                 << (std::endl) << (std::flush);
   };
   auto ma = (-1.0f);
@@ -122,11 +134,11 @@ int main() {
                 << (":") << (__LINE__) << (" ") << (__func__) << (" ")
                 << ("map_ele") << (" ") << (std::setw(8))
                 << (" elevation_beam_address='") << (elevation_beam_address)
-                << ("::") << (typeid(elevation_beam_address).name()) << ("'")
-                << (std::setw(8)) << (" number_of_Mquads='")
+                << ("::") << (demangle(typeid(elevation_beam_address).name()))
+                << ("'") << (std::setw(8)) << (" number_of_Mquads='")
                 << (number_of_Mquads) << ("::")
-                << (typeid(number_of_Mquads).name()) << ("'") << (std::endl)
-                << (std::flush);
+                << (demangle(typeid(number_of_Mquads).name())) << ("'")
+                << (std::endl) << (std::flush);
   };
 
   (std::cout)
@@ -135,10 +147,11 @@ int main() {
       << (" ") << (std::this_thread::get_id()) << (" ") << (__FILE__) << (":")
       << (__LINE__) << (" ") << (__func__) << (" ") << ("largest ele") << (" ")
       << (std::setw(8)) << (" ma_ele='") << (ma_ele) << ("::")
-      << (typeid(ma_ele).name()) << ("'") << (std::setw(8)) << (" ma='") << (ma)
-      << ("::") << (typeid(ma).name()) << ("'") << (std::setw(8))
-      << (" cal_count='") << (cal_count) << ("::") << (typeid(cal_count).name())
-      << ("'") << (std::endl) << (std::flush);
+      << (demangle(typeid(ma_ele).name())) << ("'") << (std::setw(8))
+      << (" ma='") << (ma) << ("::") << (demangle(typeid(ma).name())) << ("'")
+      << (std::setw(8)) << (" cal_count='") << (cal_count) << ("::")
+      << (demangle(typeid(cal_count).name())) << ("'") << (std::endl)
+      << (std::flush);
   auto mi_data_delay = 10000000;
   auto ma_data_delay = -1;
   auto ma_data_end = -1;
@@ -183,14 +196,15 @@ int main() {
                 << (":") << (__LINE__) << (" ") << (__func__) << (" ")
                 << ("data_delay") << (" ") << (std::setw(8))
                 << (" mi_data_delay='") << (mi_data_delay) << ("::")
-                << (typeid(mi_data_delay).name()) << ("'") << (std::setw(8))
-                << (" ma_data_delay='") << (ma_data_delay) << ("::")
-                << (typeid(ma_data_delay).name()) << ("'") << (std::setw(8))
-                << (" ma_data_end='") << (ma_data_end) << ("::")
-                << (typeid(ma_data_end).name()) << ("'") << (std::setw(8))
-                << (" ele_number_echoes='") << (ele_number_echoes) << ("::")
-                << (typeid(ele_number_echoes).name()) << ("'") << (std::endl)
-                << (std::flush);
+                << (demangle(typeid(mi_data_delay).name())) << ("'")
+                << (std::setw(8)) << (" ma_data_delay='") << (ma_data_delay)
+                << ("::") << (demangle(typeid(ma_data_delay).name())) << ("'")
+                << (std::setw(8)) << (" ma_data_end='") << (ma_data_end)
+                << ("::") << (demangle(typeid(ma_data_end).name())) << ("'")
+                << (std::setw(8)) << (" ele_number_echoes='")
+                << (ele_number_echoes) << ("::")
+                << (demangle(typeid(ele_number_echoes).name())) << ("'")
+                << (std::endl) << (std::flush);
     for (auto &azi : map_azi) {
       auto number_of_Mquads = ((azi.second) / ((1.0e+6f)));
       auto azi_beam_address = azi.first;
@@ -203,11 +217,11 @@ int main() {
                   << (__FILE__) << (":") << (__LINE__) << (" ") << (__func__)
                   << (" ") << ("map_azi") << (" ") << (std::setw(8))
                   << (" azi_beam_address='") << (azi_beam_address) << ("::")
-                  << (typeid(azi_beam_address).name()) << ("'")
+                  << (demangle(typeid(azi_beam_address).name())) << ("'")
                   << (std::setw(8)) << (" number_of_Mquads='")
                   << (number_of_Mquads) << ("::")
-                  << (typeid(number_of_Mquads).name()) << ("'") << (std::endl)
-                  << (std::flush);
+                  << (demangle(typeid(number_of_Mquads).name())) << ("'")
+                  << (std::endl) << (std::flush);
     };
   }
   ele_number_echoes = 10;
@@ -220,11 +234,13 @@ int main() {
       << (" ") << (std::setw(8))
       << (" ((ma_data_end)+(((ma_data_delay)-(mi_data_delay))))='")
       << (((ma_data_end) + (((ma_data_delay) - (mi_data_delay))))) << ("::")
-      << (typeid(((ma_data_end) + (((ma_data_delay) - (mi_data_delay)))))
-              .name())
+      << (demangle(
+             typeid(((ma_data_end) + (((ma_data_delay) - (mi_data_delay)))))
+                 .name()))
       << ("'") << (std::setw(8)) << (" ele_number_echoes='")
-      << (ele_number_echoes) << ("::") << (typeid(ele_number_echoes).name())
-      << ("'") << (std::endl) << (std::flush);
+      << (ele_number_echoes) << ("::")
+      << (demangle(typeid(ele_number_echoes).name())) << ("'") << (std::endl)
+      << (std::flush);
   auto n0 = ((ma_data_end) + (((ma_data_delay) - (mi_data_delay))));
   auto sar_image = new std::complex<float>[((n0) * (ele_number_echoes))];
 
@@ -236,8 +252,8 @@ int main() {
       << (" ") << (std::setw(8))
       << (" (((1.00e-6f))*(n0)*(ele_number_echoes))='")
       << ((((1.00e-6f)) * (n0) * (ele_number_echoes))) << ("::")
-      << (typeid((((1.00e-6f)) * (n0) * (ele_number_echoes))).name()) << ("'")
-      << (std::endl) << (std::flush);
+      << (demangle(typeid((((1.00e-6f)) * (n0) * (ele_number_echoes))).name()))
+      << ("'") << (std::endl) << (std::flush);
   remove("./o_all.csv");
   remove("./o_range.csv");
   remove("./o_cal_range.csv");
@@ -506,9 +522,10 @@ int main() {
                           << (__func__) << (" ")
                           << ("unexpected number of quads") << (" ")
                           << (std::setw(8)) << (" n='") << (n) << ("::")
-                          << (typeid(n).name()) << ("'") << (std::setw(8))
-                          << (" number_of_quads='") << (number_of_quads)
-                          << ("::") << (typeid(number_of_quads).name()) << ("'")
+                          << (demangle(typeid(n).name())) << ("'")
+                          << (std::setw(8)) << (" number_of_quads='")
+                          << (number_of_quads) << ("::")
+                          << (demangle(typeid(number_of_quads).name())) << ("'")
                           << (std::endl) << (std::flush);
             }
             {
@@ -550,11 +567,11 @@ int main() {
                     << (__FILE__) << (":") << (__LINE__) << (" ") << (__func__)
                     << (" ") << ("exception") << (" ") << (std::setw(8))
                     << (" packet_idx='") << (packet_idx) << ("::")
-                    << (typeid(packet_idx).name()) << ("'") << (std::setw(8))
-                    << (" static_cast<int>(cal_p)='")
+                    << (demangle(typeid(packet_idx).name())) << ("'")
+                    << (std::setw(8)) << (" static_cast<int>(cal_p)='")
                     << (static_cast<int>(cal_p)) << ("::")
-                    << (typeid(static_cast<int>(cal_p)).name()) << ("'")
-                    << (std::endl) << (std::flush);
+                    << (demangle(typeid(static_cast<int>(cal_p)).name()))
+                    << ("'") << (std::endl) << (std::flush);
       };
       (packet_idx)++;
     };
@@ -571,8 +588,8 @@ int main() {
                 << (" ") << (std::this_thread::get_id()) << (" ") << (__FILE__)
                 << (":") << (__LINE__) << (" ") << (__func__) << (" ")
                 << ("store echo") << (" ") << (std::setw(8)) << (" nbytes='")
-                << (nbytes) << ("::") << (typeid(nbytes).name()) << ("'")
-                << (std::endl) << (std::flush);
+                << (nbytes) << ("::") << (demangle(typeid(nbytes).name()))
+                << ("'") << (std::endl) << (std::flush);
     file.write(reinterpret_cast<const char *>(sar_image), nbytes);
 
     (std::cout) << (std::setw(10))
@@ -597,7 +614,8 @@ int main() {
       << (" ") << (std::this_thread::get_id()) << (" ") << (__FILE__) << (":")
       << (__LINE__) << (" ") << (__func__) << (" ") << ("store cal") << (" ")
       << (std::setw(8)) << (" nbytes='") << (nbytes) << ("::")
-      << (typeid(nbytes).name()) << ("'") << (std::endl) << (std::flush);
+      << (demangle(typeid(nbytes).name())) << ("'") << (std::endl)
+      << (std::flush);
   file.write(reinterpret_cast<const char *>(cal_image), nbytes);
 
   (std::cout)

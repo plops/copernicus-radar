@@ -1,11 +1,6 @@
 #ifndef COPERNICUS_01_MMAP_H
 #define COPERNICUS_01_MMAP_H
-#include "utils.h"
-;
-#include "globals.h"
-;
-#include "proto2.h"
-;
+// header;
 #include <cassert>
 #include <cstdio>
 #include <fcntl.h>

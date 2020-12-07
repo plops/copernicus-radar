@@ -247,8 +247,8 @@
 		      (string ,(format nil " ~a='" (emit-c :code e)))
 		      ,e
 		      (string "::")
-		      (dot (typeid ,e)
-			   (name))
+		      (demangle (dot (typeid ,e)
+			    (name)))
 		      (string "'")))
 	     "std::endl"
 	     "std::flush"))))
@@ -347,13 +347,27 @@
 		  " "
 		  (include "globals.h")
 		  " "
-		  (include "proto2.h")
-		  " ")
+					;(include "proto2.h")
+
+		  ,@(loop for e in (directory "source/*.hpp") collect
+							      `(include ,(file-namestring e)))
+		  " "
+		  )
 		header)
 	  (unless (cl-ppcre:scan "main" (string-downcase (format nil "~a" module-name)))
 	    (push `(do0 "extern State state;")
 		  header))
-	  (push `(:name ,module-name :code (do0 ,@(reverse header)
+	  (push `(:name ,module-name :code (do0
+					      (split-header-and-code
+		(do0
+		 "// header"
+		 
+		 )
+		(do0
+		 "// implementation"
+		 ,@(reverse header)
+		 ))
+					      
 						,module-code))
 		*module*))
 	(loop for par in global-parameters do
@@ -375,9 +389,10 @@
 		       <unordered_map>
 		       <string>
 		       <fstream>)
+	     
 	      (let ((state ,(emit-globals :init t)))
 		(declare (type "State" state)))
-
+	      
 	      (defun main ()
 		(declare (values int))
 		(setf ,(g `_start_time) (dot ("std::chrono::high_resolution_clock::now")
@@ -2019,6 +2034,24 @@
 		  (let ((n (+ decoded_ie_symbols
 			      decoded_io_symbols)))
 		    (return n))))))))))
+
+  (define-module
+      `(demangle
+	()
+	(do0
+	 (include <cxxabi.h>)
+	 (defun demangle (name)
+		 (declare (type ;"const char*"
+			   "const std::string"
+			   name)
+			  (values "std::string"))
+		 (let ((status -4))
+		   "std::unique_ptr<char,void(*)(void*)> res {abi::__cxa_demangle(name.c_str(), nullptr,nullptr,&status),std::free};"
+		   (if (== 0 status)
+		       (return (res.get))
+		       (return name)))))))
+
+
   
   (progn
     #+nil
@@ -2141,6 +2174,8 @@
 			     <array>
 			     <iostream>
 			     <iomanip>)
+		    " "
+		    (include "copernicus_08_demangle.hpp") ;; for demangle
 		    " "
 		    (do0
 		     

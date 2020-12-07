@@ -1,11 +1,6 @@
 #ifndef COPERNICUS_00_MAIN_H
 #define COPERNICUS_00_MAIN_H
-#include "utils.h"
-;
-#include "globals.h"
-;
-#include "proto2.h"
-;
+// header;
 #include <cassert>
 #include <chrono>
 #include <cstdio>

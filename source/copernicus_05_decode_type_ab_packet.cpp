@@ -1,9 +1,18 @@
+// implementation
 
 #include "utils.h"
 
 #include "globals.h"
 
-#include "proto2.h"
+#include "copernicus_00_main.hpp"
+#include "copernicus_01_mmap.hpp"
+#include "copernicus_02_collect_packet_headers.hpp"
+#include "copernicus_03_process_packet_headers.hpp"
+#include "copernicus_04_decode_packet.hpp"
+#include "copernicus_05_decode_type_ab_packet.hpp"
+#include "copernicus_06_decode_sub_commutated_data.hpp"
+#include "copernicus_07_decode_type_c_packet.hpp"
+#include "copernicus_08_demangle.hpp"
 
 extern State state;
 #include <cassert>
@@ -53,16 +62,17 @@ int init_decode_packet_type_a_or_b(int packet_idx,
       << (" ") << (std::this_thread::get_id()) << (" ") << (__FILE__) << (":")
       << (__LINE__) << (" ") << (__func__) << (" ") << ("") << (" ")
       << (std::setw(8)) << (" packet_idx='") << (packet_idx) << ("::")
-      << (typeid(packet_idx).name()) << ("'") << (std::setw(8))
-      << (" baq_mode='") << (baq_mode) << ("::") << (typeid(baq_mode).name())
-      << ("'") << (std::setw(8)) << (" baq_block_length='")
-      << (baq_block_length) << ("::") << (typeid(baq_block_length).name())
-      << ("'") << (std::setw(8)) << (" data_delay_us='") << (data_delay_us)
-      << ("::") << (typeid(data_delay_us).name()) << ("'") << (std::setw(8))
+      << (demangle(typeid(packet_idx).name())) << ("'") << (std::setw(8))
+      << (" baq_mode='") << (baq_mode) << ("::")
+      << (demangle(typeid(baq_mode).name())) << ("'") << (std::setw(8))
+      << (" baq_block_length='") << (baq_block_length) << ("::")
+      << (demangle(typeid(baq_block_length).name())) << ("'") << (std::setw(8))
+      << (" data_delay_us='") << (data_delay_us) << ("::")
+      << (demangle(typeid(data_delay_us).name())) << ("'") << (std::setw(8))
       << (" data_delay='") << (data_delay) << ("::")
-      << (typeid(data_delay).name()) << ("'") << (std::setw(8))
+      << (demangle(typeid(data_delay).name())) << ("'") << (std::setw(8))
       << (" number_of_quads='") << (number_of_quads) << ("::")
-      << (typeid(number_of_quads).name()) << ("'") << (std::endl)
+      << (demangle(typeid(number_of_quads).name())) << ("'") << (std::endl)
       << (std::flush);
   sequential_bit_t s;
   init_sequential_bit_function(

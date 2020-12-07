@@ -9,5 +9,6 @@ set( SRCS /home/martin/stage/copernicus-radar/source/copernicus_00_main.cpp
 /home/martin/stage/copernicus-radar/source/copernicus_04_decode_packet.cpp
 /home/martin/stage/copernicus-radar/source/copernicus_05_decode_type_ab_packet.cpp
 /home/martin/stage/copernicus-radar/source/copernicus_06_decode_sub_commutated_data.cpp
-/home/martin/stage/copernicus-radar/source/copernicus_07_decode_type_c_packet.cpp )
+/home/martin/stage/copernicus-radar/source/copernicus_07_decode_type_c_packet.cpp
+/home/martin/stage/copernicus-radar/source/copernicus_08_demangle.cpp )
 add_executable( mytest ${SRCS} )

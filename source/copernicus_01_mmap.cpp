@@ -1,9 +1,18 @@
+// implementation
 
 #include "utils.h"
 
 #include "globals.h"
 
-#include "proto2.h"
+#include "copernicus_00_main.hpp"
+#include "copernicus_01_mmap.hpp"
+#include "copernicus_02_collect_packet_headers.hpp"
+#include "copernicus_03_process_packet_headers.hpp"
+#include "copernicus_04_decode_packet.hpp"
+#include "copernicus_05_decode_type_ab_packet.hpp"
+#include "copernicus_06_decode_sub_commutated_data.hpp"
+#include "copernicus_07_decode_type_c_packet.hpp"
+#include "copernicus_08_demangle.hpp"
 
 extern State state;
 #include <cassert>
@@ -29,8 +38,8 @@ void destroy_mmap() {
                 << (" ") << (std::this_thread::get_id()) << (" ") << (__FILE__)
                 << (":") << (__LINE__) << (" ") << (__func__) << (" ")
                 << ("fail munmap") << (" ") << (std::setw(8)) << (" rc='")
-                << (rc) << ("::") << (typeid(rc).name()) << ("'") << (std::endl)
-                << (std::flush);
+                << (rc) << ("::") << (demangle(typeid(rc).name())) << ("'")
+                << (std::endl) << (std::flush);
   }
   assert((0) == (rc));
 }
@@ -44,9 +53,10 @@ void init_mmap(const char *filename) {
       << (" ") << (std::this_thread::get_id()) << (" ") << (__FILE__) << (":")
       << (__LINE__) << (" ") << (__func__) << (" ") << ("size") << (" ")
       << (std::setw(8)) << (" filesize='") << (filesize) << ("::")
-      << (typeid(filesize).name()) << ("'") << (std::setw(8)) << (" filename='")
-      << (filename) << ("::") << (typeid(filename).name()) << ("'")
-      << (std::endl) << (std::flush);
+      << (demangle(typeid(filesize).name())) << ("'") << (std::setw(8))
+      << (" filename='") << (filename) << ("::")
+      << (demangle(typeid(filename).name())) << ("'") << (std::endl)
+      << (std::flush);
   if ((-1) == (fd)) {
 
     (std::cout) << (std::setw(10))
@@ -56,9 +66,9 @@ void init_mmap(const char *filename) {
                 << (" ") << (std::this_thread::get_id()) << (" ") << (__FILE__)
                 << (":") << (__LINE__) << (" ") << (__func__) << (" ")
                 << ("fail open") << (" ") << (std::setw(8)) << (" fd='") << (fd)
-                << ("::") << (typeid(fd).name()) << ("'") << (std::setw(8))
-                << (" filename='") << (filename) << ("::")
-                << (typeid(filename).name()) << ("'") << (std::endl)
+                << ("::") << (demangle(typeid(fd).name())) << ("'")
+                << (std::setw(8)) << (" filename='") << (filename) << ("::")
+                << (demangle(typeid(filename).name())) << ("'") << (std::endl)
                 << (std::flush);
   }
   assert((-1) != (fd));
@@ -72,7 +82,7 @@ void init_mmap(const char *filename) {
                 << (" ") << (std::this_thread::get_id()) << (" ") << (__FILE__)
                 << (":") << (__LINE__) << (" ") << (__func__) << (" ")
                 << ("fail mmap") << (" ") << (std::setw(8)) << (" data='")
-                << (data) << ("::") << (typeid(data).name()) << ("'")
+                << (data) << ("::") << (demangle(typeid(data).name())) << ("'")
                 << (std::endl) << (std::flush);
   }
   assert((MAP_FAILED) != (data));
