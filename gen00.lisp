@@ -21,6 +21,7 @@
 					      :log-consume
 					      )))
 
+(defvar *header-file-hashes* (make-hash-table))
 
 ;; https://docs.google.com/presentation/d/1LAm3p20egBVvj86p_gmaf-zuPYm4_OAKut5xcl9cWwk/edit?usp=sharing
 
@@ -1449,7 +1450,7 @@
 		 (assert (== decoded_qo_symbols
 			     decoded_qe_symbols
 			     )))
-		(dotimes (i decoded_ie_symbols)
+		#+nil (dotimes (i decoded_ie_symbols)
 		  (do0 (dot (aref output (* 2 i)) (real (aref decoded_ie_symbols_a i)))
 		       (dot (aref output (* 2 i)) (imag (aref decoded_qe_symbols_a i))))
 		  (do0 (dot (aref output (+ 1 (* 2 i))) (real (aref decoded_io_symbols_a i)))
@@ -1574,7 +1575,7 @@
 		 (assert (== decoded_qo_symbols
 			     decoded_qe_symbols
 			     )))
-		(dotimes (i decoded_ie_symbols)
+		#+nil (dotimes (i decoded_ie_symbols)
 		  (do0 (dot (aref output (* 2 i)) (real (aref decoded_ie_symbols_a i)))
 		       (dot (aref output (* 2 i)) (imag (aref decoded_qe_symbols_a i))))
 		  (do0 (dot (aref output (+ 1 (* 2 i))) (real (aref decoded_io_symbols_a i)))
@@ -2010,7 +2011,7 @@
 		 (assert (== decoded_qo_symbols
 			     decoded_qe_symbols
 			     )))
-		  (dotimes (i decoded_ie_symbols)
+		  #+nil (dotimes (i decoded_ie_symbols)
 		    (do0 (dot (aref output (* 2 i)) (real (aref decoded_ie_symbols_a i)))
 			 (dot (aref output (* 2 i)) (imag (aref decoded_qe_symbols_a i))))
 		    (do0 (dot (aref output (+ 1 (* 2 i))) (real (aref decoded_io_symbols_a i)))
@@ -2020,7 +2021,7 @@
 		    (return n))))))))))
   
   (progn
-    
+    #+nil
     (with-open-file (s (merge-pathnames #P"proto2.h"
 					*source-dir*)
 		       :direction :output
@@ -2036,7 +2037,99 @@
 				   "~a/copernicus_~2,'0d_~a.cpp"
 				   *source-dir* i name)
 			   code))))
-    
+
+    (progn ;with-open-file
+      #+nil (s (asdf:system-relative-pathname 'cl-cpp-generator2
+					(merge-pathnames #P"proto2.h"
+							 *source-dir*))..
+	 :direction :output
+	 :if-exists :supersede
+	 :if-does-not-exist :create)
+      #+nil (format s "#ifndef PROTO2_H~%#define PROTO2_H~%~a~%"
+		    (emit-c :code `(include <cuda_runtime.h>
+					    <cuda.h>
+					    <nvrtc.h>)))
+
+      ;; include file
+      ;; http://www.cplusplus.com/forum/articles/10627/
+      
+      (loop for e in (reverse *module*) and i from 0 do
+	   (destructuring-bind (&key name code) e
+	     
+	     (let ((cuda (cl-ppcre:scan "cuda" (string-downcase (format nil "~a" name)))))
+	       
+	       (unless cuda
+		 #+nil (progn (format t "emit function declarations for ~a~%" name)
+			      (emit-c :code code
+				      :hook-defun #'(lambda (str)
+						      (format t "~a~%" str))
+				      :header-only t))
+		 #+nil (emit-c :code code
+			 :hook-defun #'(lambda (str)
+					 (format s "~a~%" str)
+					 )
+			 :hook-defclass #'(lambda (str)
+					    (format s "~a;~%" str)
+					    )
+			 :header-only t
+			 )
+		 (let* ((file (format nil
+				      "copernicus_~2,'0d_~a"
+				      i name
+				      ))
+			(file-h (string-upcase (format nil "~a_H" file)))
+			(fn-h (format nil "~a/~a.hpp"
+				      *source-dir* file))
+			
+			(code-str (with-output-to-string (sh)
+				    (format sh "#ifndef ~a~%" file-h)
+				    (format sh "#define ~a~%" file-h)
+			 
+				    (emit-c :code code
+								    :hook-defun #'(lambda (str)
+										    (format sh "~a~%" str))
+								    :hook-defclass #'(lambda (str)
+										       (format sh "~a;~%" str))
+					    :header-only t)
+				    (format sh "#endif")))
+			(fn-hash (sxhash fn-h))
+			(code-hash (sxhash code-str)))
+		   (multiple-value-bind (old-code-hash exists) (gethash fn-hash *header-file-hashes*)
+		     (when (or (not exists)
+			       (/= code-hash old-code-hash)
+			       (not (probe-file fn-h)))
+		       ;; store the sxhash of the header source in the hash table
+		       ;; *header-file-hashes* with the key formed by the sxhash of the full
+		       ;; pathname
+		       (setf (gethash fn-hash *header-file-hashes*) code-hash)
+		       (format t "~&write header: ~a fn-hash=~a ~a old=~a~%" fn-h fn-hash code-hash old-code-hash
+			       )
+		       (with-open-file (sh fn-h
+					   :direction :output
+					   :if-exists :supersede
+					   :if-does-not-exist :create)
+			 (format sh "#ifndef ~a~%" file-h)
+			 (format sh "#define ~a~%" file-h)
+			 
+			 (emit-c :code code
+				 :hook-defun #'(lambda (str)
+						 (format sh "~a~%" str))
+				 :hook-defclass #'(lambda (str)
+						    (format sh "~a;~%" str))
+				 :header-only t)
+			 (format sh "#endif"))
+		       (sb-ext:run-program "/usr/bin/clang-format"
+					   (list "-i"  (namestring fn-h)))))))
+	       (progn
+		#+nil (format t "emit cpp file for ~a~%" name)
+		(write-source (format nil
+				      "~a/copernicus_~2,'0d_~a.~a"
+				      *source-dir* i name
+				      (if cuda
+					  "cu"
+					  "cpp"))
+			      code)))))
+      #+nil (format s "#endif"))
     (write-source (merge-pathnames #P"utils.h"
 				   *source-dir*)
 		  `(do0
@@ -2081,10 +2174,36 @@
 		    " "
 		    "#endif"
 		    " "))
+    (with-open-file (s "source/CMakeLists.txt" :direction :output
+					       :if-exists :supersede
+					       :if-does-not-exist :create)
+      (macrolet ((out (fmt &rest rest)
+		   `(format s ,(format nil "~&~a~%" fmt) ,@rest)))
+	(out "cmake_minimum_required( VERSION 3.4 )")
+	(out "project( mytest LANGUAGES CXX )")
+	(out "set( CMAKE_VERBOSE_MAKEFILE ON )")
+	(out "set( CMAKE_CXX_STANDARD 14 )")
+	;(out "set( CMAKE_CXX_COMPILER clang++ )")
+	;(out "find_package( Python COMPONENTS Interpreter Development REQUIRED )")
+	;(out "find_package( pybind11 REQUIRED )")
+
+	;; GMP MPFI
+	;(out "find_package( CGAL QUIET COMPONENTS Core )")
+					;(out "set( CMAKE_CXX_FLAGS )")
+	(out "set( SRCS ~{~a~^~%~} )" ;(directory "source/*.cpp")
+	     (directory "source/*.cpp"))
+	(out "add_executable( mytest ${SRCS} )")
+	;(out "target_link_libraries( mytest PRIVATE pybind11::embed gmp )")
+	;(out "pybind11_add_module( cgal_mesher vis_01_mesher_module.cpp )")
+	;(out "target_link_libraries( cgal_mesher PRIVATE gmp )")
+	;(out "target_precompile_headers( cgal_mesher PRIVATE vis_01_mesher_module.hpp )")
+	)
+      )
     
     
     
     ;; we need to force clang-format to always have the return type in the same line as the function: PenaltyReturnTypeOnItsOwnLine
 					;(sb-ext:run-program "/bin/sh" `("gen_proto.sh"))
     #+nil (sb-ext:run-program "/usr/bin/make" `("-C" "source" "-j12" "proto2.h"))))
+
 
