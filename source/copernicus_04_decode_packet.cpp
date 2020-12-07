@@ -4,7 +4,12 @@
 
 #include "globals.h"
 
+#include "copernicus_00_main.hpp"
+#include "copernicus_02_collect_packet_headers.hpp"
+#include "copernicus_03_process_packet_headers.hpp"
 #include "copernicus_04_decode_packet.hpp"
+#include "copernicus_06_decode_sub_commutated_data.hpp"
+#include "copernicus_08_demangle.hpp"
 
 extern State state;
 #include "utils.h"

@@ -4,7 +4,9 @@
 
 #include "globals.h"
 
+#include "copernicus_00_main.hpp"
 #include "copernicus_01_mmap.hpp"
+#include "copernicus_08_demangle.hpp"
 
 extern State state;
 #include <cassert>

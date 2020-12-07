@@ -352,7 +352,7 @@
 		  (include "globals.h")
 		  " "
 					;(include "proto2.h")
-		  ,(let ((l `((0 (0 1 2   4 5 6   8))
+		  ,(let* ((l `((0 (0 1 2   4 5 6   8))
 			      (1 (0 1             8))
 			      (2 (0   2           8))
 			      (3 (    2 3     6 7 8))
@@ -360,7 +360,9 @@
 			      (5 (0   2   4 5 6   8))
 			      (6 (    2       6   8))
 			      (7 (0   2   4   6 7 8))
-			      (8 (    2       6   8)))))
+			       (8 (    2       6   8))))
+			  (header-nrs (cadr (elt l *module-count*))))
+		     (format t "check required headers for module ~a ~a: ~a~%" *module-count* module-name header-nrs)
 		     `(do0
 		       ,@(remove-if
 			  #'null
@@ -369,7 +371,7 @@
 				(let ((n (multiple-value-bind (matches regs)
 					     (cl-ppcre:scan-to-strings "copernicus_(\\d\\d)_.*" (file-namestring e))
 					   (read-from-string (elt regs 0)))))
-				  (when (member n (elt l *module-count*))
+				  (when (member n header-nrs)
 				    `(include ,(file-namestring e))))))))
 		  " "
 		  )
