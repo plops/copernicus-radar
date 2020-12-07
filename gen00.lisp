@@ -4,6 +4,11 @@
 
 (in-package :cl-cpp-generator2)
 
+
+(multiple-value-bind (matches regs)
+    (cl-ppcre:scan-to-strings "copernicus_(\\d\\d)_.*" (file-namestring (elt (directory "source/co*.hpp") 1)))
+  (read-from-string (elt regs 0)))
+
 ;; switches
 ;; :safety .. enable extra asserts in the code
 ;; :nolog  .. suppress all logging output (also makes code more readable)
