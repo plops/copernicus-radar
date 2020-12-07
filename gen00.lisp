@@ -5,9 +5,7 @@
 (in-package :cl-cpp-generator2)
 
 
-(multiple-value-bind (matches regs)
-    (cl-ppcre:scan-to-strings "copernicus_(\\d\\d)_.*" (file-namestring (elt (directory "source/co*.hpp") 1)))
-  (read-from-string (elt regs 0)))
+
 
 ;; switches
 ;; :safety .. enable extra asserts in the code
@@ -353,9 +351,22 @@
 		  (include "globals.h")
 		  " "
 					;(include "proto2.h")
-
-		  ,@(loop for e in (directory "source/*.hpp") collect
-							      `(include ,(file-namestring e)))
+		  ,(let ((l `((0 (0 1 2   4 5 6   8))
+			      (1 (0 1             8))
+			      (2 (0   2           8))
+			      (3 (    2 3     6 7))
+			      (4 (0 1 2 3 4 5 6 7))
+			      (5 (0 1 2 3 4 5 6 7))
+			      (6 (0 1 2 3 4 5 6 7))
+			      (7 (0 1 2 3 4 5 6 7))
+			      (8 (0 1 2 3 4 5 6 7)))))
+		     `(do0
+		      ,@(loop for e in (directory "source/*.hpp")
+			      collect
+			      (multiple-value-bind (matches regs)
+				  (cl-ppcre:scan-to-strings "copernicus_(\\d\\d)_.*" (file-namestring (elt (directory "source/co*.hpp") 1)))
+				(read-from-string (elt regs 0)))
+			      `(include ,(file-namestring e)))))
 		  " "
 		  )
 		header)
