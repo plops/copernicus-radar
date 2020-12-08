@@ -2100,6 +2100,11 @@
 				   (m_cols cols))
 			(values :constructor))
 	       (setf m_data (new (aref float (* rows cols)))))
+	     (defmethod ~Matrix ()
+	       (declare 
+			
+			(values :constructor))
+	       (delete (aref m_data)))
 	     (defmethod data ()
 	       (declare (values float*))
 	       (return m_data))
@@ -2114,7 +2119,25 @@
 	     "private:"
 	     "size_t m_rows, m_cols;"
 	     "float*m_data;"))
-	  
+	 (space PYBIND11_EMBEDDED_MODULE
+		(paren mk_matrix m)
+		(progn
+		  (dot
+		   (py--class_<Matrix> m (string "Matrix") (py--buffer_protocol))
+		   
+		   (def_buffer (lambda (m)
+				 (declare (type Matrix& m)
+					  (values "py::buffer_info"))
+				 (return (py--buffer_info
+					  (m.data) ;; pointer to buffer 
+					  (sizeof float) ;; size of one scalar
+					  (py--format_descriptor<float>--format) ;; fmt descriptor
+					  2 ;; number dimensinos
+					  (curly (m.rows) ;; buffer dimensions
+						 (m.cols))
+					  (curly (* (sizeof float) (m.cols)) ;; strides
+						 (sizeof float))))
+				 )))))
 	  (defun run_embedded_python ()
 	    "py::scoped_interpreter guard{};"
 	    (py--exec (string-r "

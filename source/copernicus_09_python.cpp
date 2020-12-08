@@ -16,9 +16,19 @@ namespace py = pybind11;
 Matrix::Matrix(size_t rows, size_t cols) : m_rows(rows), m_cols(cols) {
   m_data = new float[((rows) * (cols))];
 }
+Matrix::~Matrix() { delete (m_data); }
 float *Matrix::data() { return m_data; }
 size_t Matrix::rows() const { return m_rows; }
 size_t Matrix::cols() const { return m_cols; }
+PYBIND11_EMBEDDED_MODULE(mk_matrix, m) {
+  py::class_<Matrix>(m, "Matrix", py::buffer_protocol())
+      .def_buffer([](Matrix &m) -> py::buffer_info {
+        return py::buffer_info(m.data(), sizeof(float),
+                               py::format_descriptor<float>::format(), 2,
+                               {m.rows(), m.cols()},
+                               {((sizeof(float)) * (m.cols())), sizeof(float)});
+      });
+};
 void run_embedded_python() {
   py::scoped_interpreter guard{};
   py::exec(R"(

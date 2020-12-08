@@ -8,6 +8,7 @@
 class Matrix {
 public:
   Matrix(size_t rows, size_t cols);
+  ~Matrix();
   float *data();
   size_t rows() const;
   size_t cols() const;
