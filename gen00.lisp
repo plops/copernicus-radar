@@ -2089,7 +2089,17 @@
 		   <pybind11/embed.h>
 		   <string>)
 	 "namespace py = pybind11;"
+
+	 (space PYBIND11_EMBEDDED_MODULE
+		  (paren copernicus m)
+		  (progn
+		    ,@(loop for e in `(_filename
+				       _start_time)
+			    collect
+			    `(setf (m.attr (string ,e)) ,(g e)))
+		    ))
 	 
+	 #+nil
 	 (do0
 	   (comments "https://pybind11.readthedocs.io/en/stable/advanced/pycpp/numpy.html")
 	   (defclass Matrix ()
@@ -2117,44 +2127,45 @@
 	       (return m_cols))
 	     "private:"
 	     "size_t m_rows, m_cols;"
-	     "float*m_data;"))
-	 
-	 (space PYBIND11_EMBEDDED_MODULE
-		(paren mk_matrix m)
-		(progn
-		  (dot
-		   
-		   (py--class_<Matrix> m (string "Matrix") (py--buffer_protocol))
-		   (def ("py::init<size_t,size_t>"))
-		   (def (string "__repr__")
-                       (lambda (m)
-                         (declare (type "const Matrix&" m))
-                         (let ((r (std--string (string "Matrix("))))
-                                     (incf r (std--to_string (m.rows)))
-                                     (incf r (string ", "))
-                                     (incf r (std--to_string (m.cols)))
-                                     (incf r (string ")"))
-                                     (return r))))
+	     "float*m_data;")
+	   
+	   (space PYBIND11_EMBEDDED_MODULE
+		  (paren mk_matrix m)
+		  (progn
+		    (dot
+		     
+		     (py--class_<Matrix> m (string "Matrix") (py--buffer_protocol))
+		     (def ("py::init<size_t,size_t>"))
+		     (def (string "__repr__")
+			 (lambda (m)
+                           (declare (type "const Matrix&" m))
+                           (let ((r (std--string (string "Matrix("))))
+                             (incf r (std--to_string (m.rows)))
+                             (incf r (string ", "))
+                             (incf r (std--to_string (m.cols)))
+                             (incf r (string ")"))
+                             (return r))))
 
-		   (def_buffer (lambda (m)
-				 (declare (type Matrix& m)
-					  (values "py::buffer_info"))
-				 (return (py--buffer_info
-					  (m.data) ;; pointer to buffer 
-					  (sizeof float) ;; size of one scalar
-					  (py--format_descriptor<float>--format) ;; fmt descriptor
-					  2 ;; number dimensinos
-					  (curly (m.rows) ;; buffer dimensions
-						 (m.cols))
-					  (curly (* (sizeof float) (m.cols)) ;; strides
-						 (sizeof float)))))))))
+		     (def_buffer (lambda (m)
+				   (declare (type Matrix& m)
+					    (values "py::buffer_info"))
+				   (return (py--buffer_info
+					    (m.data) ;; pointer to buffer 
+					    (sizeof float) ;; size of one scalar
+					    (py--format_descriptor<float>--format) ;; fmt descriptor
+					    2 ;; number dimensinos
+					    (curly (m.rows) ;; buffer dimensions
+						   (m.cols))
+					    (curly (* (sizeof float) (m.cols)) ;; strides
+						   (sizeof float))))))))))
+	 
 
 	 
 	  (defun run_embedded_python ()
 	    "py::scoped_interpreter guard{};"
 	    (py--exec (string-r "
 import IPython
-import mk_matrix
+import copernicus
 print('hello')
 IPython.start_ipython()
 ")))
