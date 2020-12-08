@@ -352,7 +352,7 @@
 		  (include "globals.h")
 		  " "
 					;(include "proto2.h")
-		  ,(let* ((l `((0 (0 1 2   4 5 6   8))
+		  ,(let* ((l `((0 (0 1 2   4 5 6   8 9))
 			       (1 (0 1             8))
 			       (2 (0   2           8))
 			       (3 (    2 3     6   8))
@@ -360,7 +360,8 @@
 			       (5 (0   2   4 5 6   8))
 			       (6 (    2       6   8))
 			       (7 (0   2   4   6 7 8))
-			       (8 (    2       6   8))))
+			       (8 (    2       6   8))
+			       (9 (                  9))))
 			  (header-nrs (cadr (elt l *module-count*))))
 		     (format t "check required headers for module ~a ~a: ~a~%" *module-count* module-name header-nrs)
 		     `(do0
@@ -486,12 +487,13 @@
 			    (let ((number_of_cal cal.second)
 				  (cal_type cal.first))
 			      ,(logprint "map_ele" `(cal_type number_of_cal))))
+		   (run_embedded_python)
 		   (foreach (sig map_sig)
 			    (let ((number_of_sig sig.second)
 				  (sig_type sig.first))
 			      ,(logprint "map_sig" `(sig_type number_of_sig))))
 		   
-
+		   
 		   (let ((ma -1s0)
 			 (ma_ele -1))
 		     #-nil (foreach (elevation map_ele)
@@ -2078,6 +2080,48 @@
 		       (return (res.get))
 		       (return name)))))))
 
+   (define-module
+       `(python
+	 ()
+	(do0
+	 (include <pybind11/pybind11.h>
+		   <pybind11/embed.h>
+		   <string>)
+	 "namespace py = pybind11;"
+	 
+	 (do0
+	   (comments "https://pybind11.readthedocs.io/en/stable/advanced/pycpp/numpy.html")
+	   (defclass Matrix ()
+	     "public:"
+	     (defmethod Matrix (rows cols)
+	       (declare (type size_t rows cols)
+			(construct (m_rows rows)
+				   (m_cols cols))
+			(values :constructor))
+	       (setf m_data (new (aref float (* rows cols)))))
+	     (defmethod data ()
+	       (declare (values float*))
+	       (return m_data))
+	     (defmethod rows ()
+	       (declare (values size_t)
+			(const))
+	       (return m_rows))
+	     (defmethod cols ()
+	       (declare (values size_t)
+			(const))
+	       (return m_cols))
+	     "private:"
+	     "size_t m_rows, m_cols;"
+	     "float*m_data;"))
+	  
+	  (defun run_embedded_python ()
+	    "py::scoped_interpreter guard{};"
+	    (py--exec (string-r "
+import IPython
+print('hello')
+")))
+	 )))
+
 
   
   (progn
@@ -2246,8 +2290,8 @@
 	(out "set( CMAKE_VERBOSE_MAKEFILE ON )")
 	(out "set( CMAKE_CXX_STANDARD 14 )")
 	;(out "set( CMAKE_CXX_COMPILER clang++ )")
-	;(out "find_package( Python COMPONENTS Interpreter Development REQUIRED )")
-	;(out "find_package( pybind11 REQUIRED )")
+	(out "find_package( Python COMPONENTS Interpreter Development REQUIRED )")
+	(out "find_package( pybind11 REQUIRED )")
 
 	;; GMP MPFI
 	;(out "find_package( CGAL QUIET COMPONENTS Core )")
@@ -2255,7 +2299,7 @@
 	(out "set( SRCS ~{~a~^~%~} )" ;(directory "source/*.cpp")
 	     (directory "source/*.cpp"))
 	(out "add_executable( mytest ${SRCS} )")
-	;(out "target_link_libraries( mytest PRIVATE pybind11::embed gmp )")
+	(out "target_link_libraries( mytest PRIVATE pybind11::embed gmp )")
 	;(out "pybind11_add_module( cgal_mesher vis_01_mesher_module.cpp )")
 	;(out "target_link_libraries( cgal_mesher PRIVATE gmp )")
 	;(out "target_precompile_headers( cgal_mesher PRIVATE vis_01_mesher_module.hpp )")

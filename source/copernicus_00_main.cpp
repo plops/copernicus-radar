@@ -11,6 +11,7 @@
 #include "copernicus_05_decode_type_ab_packet.hpp"
 #include "copernicus_06_decode_sub_commutated_data.hpp"
 #include "copernicus_08_demangle.hpp"
+#include "copernicus_09_python.hpp"
 
 #include <cassert>
 #include <chrono>
@@ -97,6 +98,7 @@ int main() {
                 << (demangle(typeid(number_of_cal).name())) << ("'")
                 << (std::endl) << (std::flush);
   };
+  run_embedded_python();
   for (auto &sig : map_sig) {
     auto number_of_sig = sig.second;
     auto sig_type = sig.first;
