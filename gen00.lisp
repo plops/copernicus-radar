@@ -318,6 +318,12 @@
 	  (declare (type sequential_bit_t* s)
 		   (values "inline int"))
 	  ,(frob huffman-tree))))
+    #+nil(defun add-global-parameter (params )
+      (destructuring-bind (name type &optional default) params
+        (push `(:name ,name
+	       :type ,type
+	       :default ,default)
+	     *module-global-parameters* )))
     (defun emit-globals (&key init)
       (let ((l `((_start_time ,(emit-c :code `(typeof (dot ("std::chrono::high_resolution_clock::now")
 							   (time_since_epoch)
@@ -404,7 +410,10 @@
   (defun g (arg)
     `(dot state ,arg))
   (define-module
-      `(main ((_filename :direction 'out :type "char const *"))
+      `(main ((_filename :direction 'out :type "char const *")
+	      (_map_ele :type "std::unordered_map<int,int>" )
+	      (_map_cal :type "std::unordered_map<int,int>" )
+	      (_map_sig :type "std::unordered_map<int,int>" ))
 	     (do0
 	     (include <iostream>
 		       <chrono>
@@ -470,7 +479,6 @@
 				  (sub_data ,(space-packet-slot-get 'sub-commutated-data 'p))
 				  (signal_type ,(space-packet-slot-get 'ses-ssb-signal-type 'p)))
 			      
-			      
 			      (feed_sub_commutated_data_decoder sub_data sub_index space_packet_count)
 			      (incf (aref map_sig signal_type))
 			      (if cal_p
@@ -480,7 +488,8 @@
 					       (logand ele #x7)))
 				   ,(logprint "cal" `(cal_p cal_type number_of_quads baq_mode test_mode)))
 				  (do0
-				   (incf (aref map_ele ele) number_of_quads)))
+				   (incf (aref map_ele ele) number_of_quads)
+				   (incf (aref ,(g `_map_ele) ele) number_of_quads)))
 			      (incf packet_idx)))
 
 		   (foreach (cal map_cal)
@@ -547,6 +556,9 @@
 		 (setf ele_number_echoes 10)
 		 ,(logprint "start big allocation" `((+ ma_data_end (- ma_data_delay mi_data_delay))
 						     ele_number_echoes))
+		 #+nil(do0
+		  ,(add-global-parameter '("_ele_number_echoes" int))
+		  (setf ,(g `_ele_number_echoes) ele_number_echoes))
 		 (run_embedded_python)
 		 (let
 		     ((n0 (+ ma_data_end (- ma_data_delay mi_data_delay)))
@@ -2086,15 +2098,19 @@
 	 ()
 	(do0
 	 (include <pybind11/pybind11.h>
+		  <pybind11/stl.h>
 		   <pybind11/embed.h>
 		   <string>)
+	 
 	 "namespace py = pybind11;"
 
 	 (space PYBIND11_EMBEDDED_MODULE
 		  (paren copernicus m)
 		  (progn
 		    ,@(loop for e in `(_filename
-				       _start_time)
+				       _start_time
+				       
+				       _map_ele)
 			    collect
 			    `(setf (m.attr (string ,e)) ,(g e)))
 		    ))
@@ -2324,7 +2340,7 @@ IPython.start_ipython()
 		    "#define GLOBALS_H"
 		    " "
 		    (include <thread>)
-		    
+		    (include <unordered_map>)
 		    ,(emit-globals)
 		    " "
 		    "#endif"

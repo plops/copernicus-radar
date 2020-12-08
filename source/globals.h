@@ -4,6 +4,7 @@
 
 #include <chrono>
 #include <thread>
+#include <unordered_map>
 struct State {
   typeof(std::chrono::high_resolution_clock::now().time_since_epoch().count())
       _start_time;
@@ -15,6 +16,9 @@ struct State {
   std::vector<std::array<uint8_t, 62 + 6>> _header_data;
   size_t _mmap_filesize;
   void *_mmap_data;
+  std::unordered_map<int, int> _map_sig;
+  std::unordered_map<int, int> _map_cal;
+  std::unordered_map<int, int> _map_ele;
   char const *_filename;
 };
 typedef struct State State;

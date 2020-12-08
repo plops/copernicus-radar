@@ -78,6 +78,7 @@ int main() {
                   << (std::endl) << (std::flush);
     } else {
       (map_ele[ele]) += (number_of_quads);
+      (state._map_ele[ele]) += (number_of_quads);
     }
     (packet_idx)++;
   };
