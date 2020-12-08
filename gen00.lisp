@@ -2102,7 +2102,6 @@
 	       (setf m_data (new (aref float (* rows cols)))))
 	     (defmethod ~Matrix ()
 	       (declare 
-			
 			(values :constructor))
 	       (delete (aref m_data)))
 	     (defmethod data ()
@@ -2119,12 +2118,24 @@
 	     "private:"
 	     "size_t m_rows, m_cols;"
 	     "float*m_data;"))
+	 
 	 (space PYBIND11_EMBEDDED_MODULE
 		(paren mk_matrix m)
 		(progn
 		  (dot
-		   (py--class_<Matrix> m (string "Matrix") (py--buffer_protocol))
 		   
+		   (py--class_<Matrix> m (string "Matrix") (py--buffer_protocol))
+		   (def ("py::init<size_t,size_t>"))
+		   (def (string "__repr__")
+                       (lambda (m)
+                         (declare (type "const Matrix&" m))
+                         (let ((r (std--string (string "Matrix("))))
+                                     (incf r (std--to_string (m.rows)))
+                                     (incf r (string ", "))
+                                     (incf r (std--to_string (m.cols)))
+                                     (incf r (string ")"))
+                                     (return r))))
+
 		   (def_buffer (lambda (m)
 				 (declare (type Matrix& m)
 					  (values "py::buffer_info"))
@@ -2136,12 +2147,14 @@
 					  (curly (m.rows) ;; buffer dimensions
 						 (m.cols))
 					  (curly (* (sizeof float) (m.cols)) ;; strides
-						 (sizeof float))))
-				 )))))
+						 (sizeof float)))))))))
+
+	 
 	  (defun run_embedded_python ()
 	    "py::scoped_interpreter guard{};"
 	    (py--exec (string-r "
 import IPython
+import mk_matrix
 print('hello')
 IPython.start_ipython()
 ")))
