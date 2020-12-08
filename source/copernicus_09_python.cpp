@@ -24,5 +24,6 @@ void run_embedded_python() {
   py::exec(R"(
 import IPython
 print('hello')
+IPython.start_ipython()
 )");
 }

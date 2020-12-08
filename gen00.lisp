@@ -487,7 +487,7 @@
 			    (let ((number_of_cal cal.second)
 				  (cal_type cal.first))
 			      ,(logprint "map_ele" `(cal_type number_of_cal))))
-		   (run_embedded_python)
+		   
 		   (foreach (sig map_sig)
 			    (let ((number_of_sig sig.second)
 				  (sig_type sig.first))
@@ -505,7 +505,7 @@
 				,(logprint "map_ele" `(elevation_beam_address number_of_Mquads))))
 		     ,(logprint "largest ele" `(ma_ele ma cal_count)))
 
-
+		   
 		   
 		   (let ((mi_data_delay 10000000) ;; minimum number of samples before data is stored
 			 (ma_data_delay -1) ;; maximum number of samples before data is stored
@@ -547,6 +547,7 @@
 		 (setf ele_number_echoes 10)
 		 ,(logprint "start big allocation" `((+ ma_data_end (- ma_data_delay mi_data_delay))
 						     ele_number_echoes))
+		 (run_embedded_python)
 		 (let
 		     ((n0 (+ ma_data_end (- ma_data_delay mi_data_delay)))
 		      (sar_image (new (aref "std::complex<float>" (* n0 ele_number_echoes)))))
@@ -2119,6 +2120,7 @@
 	    (py--exec (string-r "
 import IPython
 print('hello')
+IPython.start_ipython()
 ")))
 	 )))
 

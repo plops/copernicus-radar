@@ -98,7 +98,6 @@ int main() {
                 << (demangle(typeid(number_of_cal).name())) << ("'")
                 << (std::endl) << (std::flush);
   };
-  run_embedded_python();
   for (auto &sig : map_sig) {
     auto number_of_sig = sig.second;
     auto sig_type = sig.first;
@@ -241,6 +240,7 @@ int main() {
       << (ele_number_echoes) << ("::")
       << (demangle(typeid(ele_number_echoes).name())) << ("'") << (std::endl)
       << (std::flush);
+  run_embedded_python();
   auto n0 = ((ma_data_end) + (((ma_data_delay) - (mi_data_delay))));
   auto sar_image = new std::complex<float>[((n0) * (ele_number_echoes))];
 
