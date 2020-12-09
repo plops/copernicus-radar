@@ -427,14 +427,17 @@
 	      (let ((state ,(emit-globals :init t)))
 		(declare (type "State" state)))
 	      
-	      (defun main ()
-		(declare (values int))
+	      (defun main (argc argv)
+		(declare (type int argc)
+			 (type char** argv)
+			 (values int))
 		(setf ,(g `_start_time) (dot ("std::chrono::high_resolution_clock::now")
 					     (time_since_epoch)
 					     (count)))
 					;(vkprint "main" )
 		(setf ,(g `_filename)
-		      (string
+		      (aref argv 1)
+		      #+nil (string
 		       "/home/martin/s1a-s3-raw-s-hh-20201024t213552-20201024t213617-034943-041338.dat")) 
 		(init_mmap ,(g `_filename))
 		(init_collect_packet_headers) 

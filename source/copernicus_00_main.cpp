@@ -21,12 +21,10 @@
 #include <string>
 #include <unordered_map>
 State state = {};
-int main() {
+int main(int argc, char **argv) {
   state._start_time =
       std::chrono::high_resolution_clock::now().time_since_epoch().count();
-  state._filename =
-      "/home/martin/"
-      "s1a-s3-raw-s-hh-20201024t213552-20201024t213617-034943-041338.dat";
+  state._filename = argv[1];
   init_mmap(state._filename);
   init_collect_packet_headers();
   auto packet_idx = 0;
