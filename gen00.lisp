@@ -485,7 +485,10 @@
 				  (do0
 				   (incf cal_count)
 				   (incf (aref map_cal
-					       (logand ele #x7)))
+					       (logand ele #x7))
+					 )
+				   (incf (aref ,(g `_map_cal)
+						     (logand ele #x7)))
 				   ,(logprint "cal" `(cal_p cal_type number_of_quads baq_mode test_mode)))
 				  (do0
 				   (incf (aref map_ele ele) number_of_quads)
@@ -559,7 +562,7 @@
 		 #+nil(do0
 		  ,(add-global-parameter '("_ele_number_echoes" int))
 		  (setf ,(g `_ele_number_echoes) ele_number_echoes))
-		 (run_embedded_python)
+		 ;(run_embedded_python)
 		 (let
 		     ((n0 (+ ma_data_end (- ma_data_delay mi_data_delay)))
 		      (sar_image (new (aref "std::complex<float>" (* n0 ele_number_echoes)))))
@@ -2353,6 +2356,7 @@ IPython.start_ipython()
 	(out "cmake_minimum_required( VERSION 3.4 )")
 	(out "project( mytest LANGUAGES CXX )")
 	(out "set( CMAKE_VERBOSE_MAKEFILE ON )")
+	(out "set( CMAKE_CXX_FLAGS \"-Og -ggdb3 -march=native -mtune=native\")")
 	(out "set( CMAKE_CXX_STANDARD 14 )")
 	;(out "set( CMAKE_CXX_COMPILER clang++ )")
 	(out "find_package( Python COMPONENTS Interpreter Development REQUIRED )")

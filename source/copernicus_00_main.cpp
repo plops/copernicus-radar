@@ -57,6 +57,7 @@ int main() {
     if (cal_p) {
       (cal_count)++;
       (map_cal[((ele) & (7))])++;
+      (state._map_cal[((ele) & (7))])++;
 
       (std::cout) << (std::setw(10))
                   << (std::chrono::high_resolution_clock::now()
@@ -241,7 +242,6 @@ int main() {
       << (ele_number_echoes) << ("::")
       << (demangle(typeid(ele_number_echoes).name())) << ("'") << (std::endl)
       << (std::flush);
-  run_embedded_python();
   auto n0 = ((ma_data_end) + (((ma_data_delay) - (mi_data_delay))));
   auto sar_image = new std::complex<float>[((n0) * (ele_number_echoes))];
 

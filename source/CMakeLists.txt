@@ -1,6 +1,7 @@
 cmake_minimum_required( VERSION 3.4 )
 project( mytest LANGUAGES CXX )
 set( CMAKE_VERBOSE_MAKEFILE ON )
+set( CMAKE_CXX_FLAGS "-Og -ggdb3 -march=native -mtune=native")
 set( CMAKE_CXX_STANDARD 14 )
 find_package( Python COMPONENTS Interpreter Development REQUIRED )
 find_package( pybind11 REQUIRED )
