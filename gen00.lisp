@@ -434,25 +434,7 @@
 					;(vkprint "main" )
 		(setf ,(g `_filename)
 		      (string
-		       "/home/martin/s1a-s3-raw-s-hh-20201024t213552-20201024t213617-034943-041338.dat"
-		       ; "/media/sdb4/sar/sao_paulo/s1b-s6-raw-s-vv-20200824t214314-20200824t214345-023070-02bce0.dat"
-		       
-					;"/media/sdb4/sar/singapore/S1A_IW_RAW__0SDV_20200413T224752_20200413T224825_032115_03B64B_FDA8.SAFE/s1a-iw-raw-s-vv-20200413t224752-20200413t224825-032115-03b64b.dat" ;; singapore
-					; "/home/martin/Downloads/s1b-s3-raw-s-vv-20191212t150115-20191212t150141-019333-024829.dat" ;; stripmap with 2 islands https://scihub.copernicus.eu/dhus/odata/v1/Products(%2742030b2d-07d3-4fe0-9104-2ba800de184d%27)/Nodes(%27S1B_S3_RAW__0SDV_20191212T150115_20191212T150141_019333_024829_9492.SAFE%27)/Nodes(%27s1b-s3-raw-s-vv-20191212t150115-20191212t150141-019333-024829.dat%27)/$value
-		       
-		       ;;"/home/martin/Downloads/s1a-iw-raw-s-vv-20191205t192200-20191205t192233-030217-03743d.dat" ;; australia retro reflectors ; https://scihub.copernicus.eu/dhus/odata/v1/Products(%27a43207a0-c3bb-47e2-a819-0885468cf16f%27)/Nodes(%27S1A_IW_RAW__0SDV_20191205T192200_20191205T192233_030217_03743D_C3C8.SAFE%27)/Nodes(%27s1a-iw-raw-s-vv-20191205t192200-20191205t192233-030217-03743d.dat%27)/$value
-					; "/home/martin/Downloads/s1b-iw-raw-s-vv-20191127t171630-20191127t171702-019116-024140.dat" ;; north sea wind park and strong reflector ;; https://scihub.copernicus.eu/dhus/odata/v1/Products(%27f4698f73-c40c-4de5-8852-cb11ad11fd1f%27)/Nodes(%27S1B_IW_RAW__0SDV_20191127T171630_20191127T171702_019116_024140_5DFA.SAFE%27)/Nodes(%27s1b-iw-raw-s-vv-20191127t171630-20191127t171702-019116-024140.dat%27)/$value
-					;"/home/martin/Downloads/s1a-ew-raw-s-hh-20191212t201350-20191212t201407-030320-0377ca.dat" ;; short stripe in greenland
-					; "/home/martin/Downloads/s1a-iw-raw-s-vv-20191124t174119-20191124t174151-030056-036ead.dat" ;; north sea reflector https://scihub.copernicus.eu/dhus/odata/v1/Products(%275b395b3e-f9e8-494e-973b-b5ed6a8921e7%27)/Nodes(%27S1A_IW_RAW__0SDV_20191124T174119_20191124T174151_030056_036EAD_1207.SAFE%27)/Nodes(%27s1a-iw-raw-s-vv-20191124t174119-20191124t174151-030056-036ead.dat%27)/$value
-					; "/home/martin/Downloads/s1a-s4-raw-s-vv-20191204t183618-20191204t183628-030202-0373bf.dat" ;; lone island stripmap
-					; "/home/martin/Downloads/s1b-s4-raw-s-vv-20191207t145315-20191207t145331-019260-0245d2.dat"
-					; "/home/martin/Downloads/s1a-iw-raw-s-vv-20191205t192200-20191205t192233-030217-03743d.dat"
-					;"/home/martin/Downloads/s1b-iw-raw-s-hh-20191204t083206-20191204t083239-019212-024466.dat"
-					; "/home/martin/Downloads/s1a-s3-raw-s-hh-20191203t000055-20191203t000115-030176-0372c8.dat" ;; stripmap with 2 islands
-					; "/home/martin/Downloads/s1a-ew-raw-s-hv-20191130t152915-20191130t153018-030142-0371ab.dat"
-					;"/home/martin/Downloads/S1A_IW_RAW__0SDV_20181106T135244_20181106T135316_024468_02AEB9_3552.SAFE/s1a-iw-raw-s-vh-20181106t135244-20181106t135316-024468-02aeb9.dat"
-					;"/home/martin/Downloads/S1A_IW_RAW__0SDV_20191125T135230_20191125T135303_030068_036F1E_6704.SAFE/s1a-iw-raw-s-vv-20191125t135230-20191125t135303-030068-036f1e.dat"
-		       )) 
+		       "/home/martin/s1a-s3-raw-s-hh-20201024t213552-20201024t213617-034943-041338.dat")) 
 		(init_mmap ,(g `_filename))
 		(init_collect_packet_headers) 
 					;(init_process_packet_headers)
@@ -562,7 +544,7 @@
 		 #+nil(do0
 		  ,(add-global-parameter '("_ele_number_echoes" int))
 		  (setf ,(g `_ele_number_echoes) ele_number_echoes))
-		 ;(run_embedded_python)
+		 
 		 (let
 		     ((n0 (+ ma_data_end (- ma_data_delay mi_data_delay)))
 		      (sar_image (new (aref "std::complex<float>" (* n0 ele_number_echoes)))))
@@ -575,117 +557,84 @@
 		   (let ((cal_n0 6000)
 			 (cal_iter 0)
 			 (cal_image (new (aref "std::complex<float>" (* cal_n0 cal_count))))))
-		   
-		   (progn
-		     (let ((packet_idx 0)
-			   (ele_count 0))
-		       (foreach (e ,(g `_header_data))
-				(let ((offset (aref ,(g `_header_offset) packet_idx))
-				      (p (+ offset (static_cast<uint8_t*> ,(g `_mmap_data))))
+
+		   ,(let ((l (loop for e in *space-packet* collect
+							   (destructuring-bind (name_ default-value &key bits) e
+						   name_)))
+			  (l-c (loop for e in *space-packet* collect
+							     (destructuring-bind (name_ default-value &key bits) e
+							       (substitute #\_ #\- (format nil "~a" name_))))))
+		      `(progn
+			 (let (,@(loop for e in l and ec in l-c collect
+						       `(,(format nil "array_~a" ec) (std--vector<float>))))
+			  (let ((packet_idx 0)
+				(ele_count 0))
+			    (foreach (e ,(g `_header_data))
+				     (let ((offset (aref ,(g `_header_offset) packet_idx))
+					   (p (+ offset (static_cast<uint8_t*> ,(g `_mmap_data))))
 
 				      
-				      (azi ,(space-packet-slot-get 'sab-ssb-azimuth-beam-address 'p))
-				      (baq_n ,(space-packet-slot-get 'baq-block-length 'p))
-				      (baqmod ,(space-packet-slot-get 'baq-mode 'p))
-				      (cal_mode ,(space-packet-slot-get 'ses-ssb-cal-mode 'p))
-				      (cal_p ,(space-packet-slot-get 'sab-ssb-calibration-p 'p) )
-				      (ecc ,(space-packet-slot-get 'ecc-number 'p))
-				      (ele ,(space-packet-slot-get 'sab-ssb-elevation-beam-address 'p))
-				      (cal_type (logand ele #x7))
-				      (err ,(space-packet-slot-get 'error-flag 'p))
-				      (number_of_quads ,(space-packet-slot-get 'number-of-quads 'p))
+					   (azi ,(space-packet-slot-get 'sab-ssb-azimuth-beam-address 'p))
+					   (baq_n ,(space-packet-slot-get 'baq-block-length 'p))
+					   (baqmod ,(space-packet-slot-get 'baq-mode 'p))
+					   (cal_mode ,(space-packet-slot-get 'ses-ssb-cal-mode 'p))
+					   (cal_p ,(space-packet-slot-get 'sab-ssb-calibration-p 'p) )
+					   (ecc ,(space-packet-slot-get 'ecc-number 'p))
+					   (ele ,(space-packet-slot-get 'sab-ssb-elevation-beam-address 'p))
+					   (cal_type (logand ele #x7))
+					   (err ,(space-packet-slot-get 'error-flag 'p))
+					   (number_of_quads ,(space-packet-slot-get 'number-of-quads 'p))
 				      
-				      (pol ,(space-packet-slot-get 'sab-ssb-polarisation 'p))
-				      (pri_count ,(space-packet-slot-get 'pri-count 'p))
-				      (rank ,(space-packet-slot-get 'rank 'p))
-				      (rx ,(space-packet-slot-get 'rx-channel-id 'p))
-				      (rgdec ,(space-packet-slot-get 'range-decimation 'p))
-				      (signal_type ,(space-packet-slot-get 'ses-ssb-signal-type 'p))
-				      (space_packet_count ,(space-packet-slot-get 'space-packet-count 'p))
-				      (swath ,(space-packet-slot-get 'ses-ssb-swath-number 'p))
-				      (swl ,(space-packet-slot-get 'sampling-window-length 'p))
-				      (swst ,(space-packet-slot-get 'sampling-window-start-time 'p))
-				      (sync_marker ,(space-packet-slot-get 'sync-marker 'p))
-				      (tstmod ,(space-packet-slot-get 'test-mode 'p))
+					   (pol ,(space-packet-slot-get 'sab-ssb-polarisation 'p))
+					   (pri_count ,(space-packet-slot-get 'pri-count 'p))
+					   (rank ,(space-packet-slot-get 'rank 'p))
+					   (rx ,(space-packet-slot-get 'rx-channel-id 'p))
+					   (rgdec ,(space-packet-slot-get 'range-decimation 'p))
+					   (signal_type ,(space-packet-slot-get 'ses-ssb-signal-type 'p))
+					   (space_packet_count ,(space-packet-slot-get 'space-packet-count 'p))
+					   (swath ,(space-packet-slot-get 'ses-ssb-swath-number 'p))
+					   (swl ,(space-packet-slot-get 'sampling-window-length 'p))
+					   (swst ,(space-packet-slot-get 'sampling-window-start-time 'p))
+					   (sync_marker ,(space-packet-slot-get 'sync-marker 'p))
+					   (tstmod ,(space-packet-slot-get 'test-mode 'p))
 
 				  
 			   
-				      (data_delay (+ ,(/ 320 8)
-						     ,(space-packet-slot-get 'sampling-window-start-time 'p)))
-				      ,@(loop for (e f) in `((txprr_p tx-ramp-rate-polarity)
-							     (txprr_m tx-ramp-rate-magnitude)
-							     (txpsf_p tx-pulse-start-frequency-polarity)
-							     (txpsf_m tx-pulse-start-frequency-magnitude)
-							     (txpl_ tx-pulse-length))  collect
-					     `(,e ,(space-packet-slot-get f 'p)))
-				      (fref 37.53472224)
-				      (txprr_ (* (pow -1 txprr_p) txprr_m))
-				      (txprr (* (/ (* fref fref) ;; MHZ/us
-						   ,(expt 2 21))
-						(pow -1.0 txprr_p)
-						txprr_m))
-				      (txpsf (+ (/ txprr (* fref 4)) ;; MHz
-						(* (/ fref
-						      ,(expt 2 14))
-						   (pow -1.0 txpsf_p)
-						   txpsf_m)))
-				      (txpl (/ (static_cast<double> txpl_) ;; us
-					       fref)))
-				  (assert (== sync_marker (hex #x352EF853)))
-				  #+nil ,(logprint "iter" `(space_packet_count pri_count))
+					   (data_delay (+ ,(/ 320 8)
+							  ,(space-packet-slot-get 'sampling-window-start-time 'p)))
+					   ,@(loop for (e f) in `((txprr_p tx-ramp-rate-polarity)
+								  (txprr_m tx-ramp-rate-magnitude)
+								  (txpsf_p tx-pulse-start-frequency-polarity)
+								  (txpsf_m tx-pulse-start-frequency-magnitude)
+								  (txpl_ tx-pulse-length))  collect
+						   `(,e ,(space-packet-slot-get f 'p)))
+					   (fref 37.53472224)
+					   (txprr_ (* (pow -1 txprr_p) txprr_m))
+					   (txprr (* (/ (* fref fref) ;; MHZ/us
+							,(expt 2 21))
+						     (pow -1.0 txprr_p)
+						     txprr_m))
+					   (txpsf (+ (/ txprr (* fref 4)) ;; MHz
+						     (* (/ fref
+							   ,(expt 2 14))
+							(pow -1.0 txpsf_p)
+							txpsf_m)))
+					   (txpl (/ (static_cast<double> txpl_) ;; us
+						    fref)))
+				       (assert (== sync_marker (hex #x352EF853)))
+				       #+nil ,(logprint "iter" `(space_packet_count pri_count))
 
-				  ,(let ((l (loop for e in *space-packet* collect
-						 (destructuring-bind (name_ default-value &key bits) e
-						   name_)))
-					 (l-c (loop for e in *space-packet* collect
-						 (destructuring-bind (name_ default-value &key bits) e
-						   (substitute #\_ #\- (format nil "~a" name_))))))
-				     `(progn
-					(let (,@(loop for e in l and ec in l-c collect
-						     `(,ec ,(space-packet-slot-get e 'p))))
-					  ,(csvprint "./o_all.csv"
-						`(
-						  ,@(loop for e in l and ec in l-c collect
-						     ec)
-						  azi
-						  baq_n
-						  baqmod
-						    cal_iter
-						    ele_count
-						  cal_mode
-						  cal_p
-						  cal_type
-						  data_delay
-						    
-						    offset
-						  packet_idx
-						  pol
-						    
-						    rgdec
-						  rx
-						  signal_type
-						    
-						  swath
-						  swl
-						  swst
-						  tstmod
-						  txpl
-						  txpl_
-						  txprr
-						  txprr_
-						  txpsf
-
-						  )))
-					))
-				  (#+safety handler-case
-					    #-safety do0
-					    (if cal_p
-						(do0
-						 (;init_decode_type_c_packet_baq5
-						  init_decode_packet_type_a_or_b
-						  packet_idx (+ cal_image (* cal_n0 cal_iter)))
-						 ,(csvprint "./o_cal_range.csv"
+				       (progn
+					 (let (,@(loop for e in l and ec in l-c collect
+						       `(,ec ,(space-packet-slot-get e 'p))))
+					   ,@(loop for e in l and ec in l-c collect
+						   `(dot ,(format nil "array_~a" ec)
+							 (push_back ,ec)))
+					  
+					   #+nil ,(csvprint "./o_all.csv"
 							    `(
+							      ,@(loop for e in l and ec in l-c collect
+								      ec)
 							      azi
 							      baq_n
 							      baqmod
@@ -695,16 +644,15 @@
 							      cal_p
 							      cal_type
 							      data_delay
-							      number_of_quads
+						       
 							      offset
 							      packet_idx
 							      pol
-							      pri_count
-							      rank
+						       
 							      rgdec
 							      rx
 							      signal_type
-							      space_packet_count
+						       
 							      swath
 							      swl
 							      swst
@@ -715,77 +663,120 @@
 							      txprr_
 							      txpsf
 
-							      ))
-						 (incf cal_iter))
-					      (when (== ele ma_ele)
-						(let ( ;(output)
-						      (n #+nil (init_decode_packet packet_idx mi_data_delay output)
-							 (init_decode_packet packet_idx
-									     ;; data_delay is at least mi_data_delay and at most ma_data_delay
-									     ;; create an offset in [0.. ma_data_delay-mi_data_delay)
-									     (+ sar_image (+ (- data_delay mi_data_delay) (* n0 ele_count))))))
-						  #+nil(declare (type "std::array<std::complex<float>,MAX_NUMBER_QUADS>" output))
-						  #+safety (unless (== n (* 2 number_of_quads))
-							     ,(logprint "unexpected number of quads" `(n number_of_quads)))
+							      )))
+					 )
+				       (#+safety handler-case
+					#-safety do0
+					(if cal_p
+					    (do0
+					     ( ;init_decode_type_c_packet_baq5
+					      init_decode_packet_type_a_or_b
+					      packet_idx (+ cal_image (* cal_n0 cal_iter)))
+					     ,(csvprint "./o_cal_range.csv"
+							`(
+							  azi
+							  baq_n
+							  baqmod
+							  cal_iter
+							  ele_count
+							  cal_mode
+							  cal_p
+							  cal_type
+							  data_delay
+							  number_of_quads
+							  offset
+							  packet_idx
+							  pol
+							  pri_count
+							  rank
+							  rgdec
+							  rx
+							  signal_type
+							  space_packet_count
+							  swath
+							  swl
+							  swst
+							  tstmod
+							  txpl
+							  txpl_
+							  txprr
+							  txprr_
+							  txpsf
+
+							  ))
+					     (incf cal_iter))
+					    (when (== ele ma_ele)
+					      (let ( ;(output)
+						    (n #+nil (init_decode_packet packet_idx mi_data_delay output)
+						       (init_decode_packet packet_idx
+									   ;; data_delay is at least mi_data_delay and at most ma_data_delay
+									   ;; create an offset in [0.. ma_data_delay-mi_data_delay)
+									   (+ sar_image (+ (- data_delay mi_data_delay) (* n0 ele_count))))))
+						#+nil(declare (type "std::array<std::complex<float>,MAX_NUMBER_QUADS>" output))
+						#+safety (unless (== n (* 2 number_of_quads))
+							   ,(logprint "unexpected number of quads" `(n number_of_quads)))
 					;,(logprint "tx" `(txprr txpsf txpl))
-						  ,(csvprint "./o_range.csv"
-							     `(
-							       azi
-							       baq_n
-							       baqmod
-							       cal_iter
-							       cal_mode
-							       cal_p
-							       data_delay
-							       ele
-							       ele_count
-							       number_of_quads
-							       offset
-							       packet_idx
-							       pol
-							       pri_count
-							       rank
-							       rx
-							       rgdec
-							       signal_type
-							       space_packet_count
-							       swath
-							       swl
-							       swst
-							       tstmod
-							       txpl
-							       txpl_
-							       txprr
-							       txprr_
-							       txpsf
+						,(csvprint "./o_range.csv"
+							   `(
+							     azi
+							     baq_n
+							     baqmod
+							     cal_iter
+							     cal_mode
+							     cal_p
+							     data_delay
+							     ele
+							     ele_count
+							     number_of_quads
+							     offset
+							     packet_idx
+							     pol
+							     pri_count
+							     rank
+							     rx
+							     rgdec
+							     signal_type
+							     space_packet_count
+							     swath
+							     swl
+							     swst
+							     tstmod
+							     txpl
+							     txpl_
+							     txprr
+							     txprr_
+							     txpsf
 							       
-							       ))
-						  (do0
-						   #+nil (dotimes (i n)
-							   (setf (aref sar_image (+ i (* n0 ele_count)))
-								 (aref output i))
-							   )
-						   (incf ele_count)))))
-					    #+safety ("std::out_of_range" (e)
-									  ,(logprint "exception" `(packet_idx
-												   (static_cast<int> cal_p)))
+							     ))
+						(do0
+						 #+nil (dotimes (i n)
+							 (setf (aref sar_image (+ i (* n0 ele_count)))
+							       (aref output i))
+							 )
+						 (incf ele_count)))))
+					#+safety ("std::out_of_range"
+						  (e)
+						  ,(logprint "exception" `(packet_idx
+									   (static_cast<int> cal_p)))
+						  (run_embedded_python)
+								      
 					;(assert 0)
-									  ))
-				  (incf packet_idx)))
-		       (let ((fn (+ ("std::string" (string "/media/sdb4/sar/o_range"))
-				("std::to_string" n0)
-				("std::string" (string "_echoes"))
-				("std::to_string" ele_number_echoes)
-				("std::string" (string ".cf"))))
-			     (file ("std::ofstream" fn "std::ofstream::binary"))
-			     (nbytes (* n0
-					ele_number_echoes
-					(sizeof "std::complex<float>"))))
-			 ,(logprint "store echo" '(nbytes))
-			 (file.write ("reinterpret_cast<const char*>" sar_image) nbytes)
-			 ,(logprint "store echo finished" '()))))
+								      ))
+				       (incf packet_idx)))
+			    (let ((fn (+ ("std::string" (string "/dev/shm/o_range"))
+					 ("std::to_string" n0)
+					 ("std::string" (string "_echoes"))
+					 ("std::to_string" ele_number_echoes)
+					 ("std::string" (string ".cf"))))
+				  (file ("std::ofstream" fn "std::ofstream::binary"))
+				  (nbytes (* n0
+					     ele_number_echoes
+					     (sizeof "std::complex<float>"))))
+			      ,(logprint "store echo" '(nbytes))
+			      (file.write ("reinterpret_cast<const char*>" sar_image) nbytes)
+			      ,(logprint "store echo finished" '()))))))
 		   (delete[] sar_image)
-		   (let ((fn (+ ("std::string" (string "/media/sdb4/sar/o_cal_range"))
+		   (let ((fn (+ ("std::string" (string "/dev/shm/o_cal_range"))
 				("std::to_string" cal_n0)
 				("std::string" (string "_echoes"))
 				("std::to_string" cal_count)

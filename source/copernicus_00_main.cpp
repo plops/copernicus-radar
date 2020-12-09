@@ -262,6 +262,60 @@ int main() {
   auto cal_iter = 0;
   auto cal_image = new std::complex<float>[((cal_n0) * (cal_count))];
   {
+    auto array_packet_version_number = std::vector<float>();
+    auto array_packet_type = std::vector<float>();
+    auto array_secondary_header_flag = std::vector<float>();
+    auto array_application_process_id_process_id = std::vector<float>();
+    auto array_application_process_id_packet_category = std::vector<float>();
+    auto array_sequence_flags = std::vector<float>();
+    auto array_sequence_count = std::vector<float>();
+    auto array_data_length = std::vector<float>();
+    auto array_coarse_time = std::vector<float>();
+    auto array_fine_time = std::vector<float>();
+    auto array_sync_marker = std::vector<float>();
+    auto array_data_take_id = std::vector<float>();
+    auto array_ecc_number = std::vector<float>();
+    auto array_ignore_0 = std::vector<float>();
+    auto array_test_mode = std::vector<float>();
+    auto array_rx_channel_id = std::vector<float>();
+    auto array_instrument_configuration_id = std::vector<float>();
+    auto array_sub_commutated_index = std::vector<float>();
+    auto array_sub_commutated_data = std::vector<float>();
+    auto array_space_packet_count = std::vector<float>();
+    auto array_pri_count = std::vector<float>();
+    auto array_error_flag = std::vector<float>();
+    auto array_ignore_1 = std::vector<float>();
+    auto array_baq_mode = std::vector<float>();
+    auto array_baq_block_length = std::vector<float>();
+    auto array_ignore_2 = std::vector<float>();
+    auto array_range_decimation = std::vector<float>();
+    auto array_rx_gain = std::vector<float>();
+    auto array_tx_ramp_rate_polarity = std::vector<float>();
+    auto array_tx_ramp_rate_magnitude = std::vector<float>();
+    auto array_tx_pulse_start_frequency_polarity = std::vector<float>();
+    auto array_tx_pulse_start_frequency_magnitude = std::vector<float>();
+    auto array_tx_pulse_length = std::vector<float>();
+    auto array_ignore_3 = std::vector<float>();
+    auto array_rank = std::vector<float>();
+    auto array_pulse_repetition_interval = std::vector<float>();
+    auto array_sampling_window_start_time = std::vector<float>();
+    auto array_sampling_window_length = std::vector<float>();
+    auto array_sab_ssb_calibration_p = std::vector<float>();
+    auto array_sab_ssb_polarisation = std::vector<float>();
+    auto array_sab_ssb_temp_comp = std::vector<float>();
+    auto array_sab_ssb_ignore_0 = std::vector<float>();
+    auto array_sab_ssb_elevation_beam_address = std::vector<float>();
+    auto array_sab_ssb_ignore_1 = std::vector<float>();
+    auto array_sab_ssb_azimuth_beam_address = std::vector<float>();
+    auto array_ses_ssb_cal_mode = std::vector<float>();
+    auto array_ses_ssb_ignore_0 = std::vector<float>();
+    auto array_ses_ssb_tx_pulse_number = std::vector<float>();
+    auto array_ses_ssb_signal_type = std::vector<float>();
+    auto array_ses_ssb_ignore_1 = std::vector<float>();
+    auto array_ses_ssb_swap = std::vector<float>();
+    auto array_ses_ssb_swath_number = std::vector<float>();
+    auto array_number_of_quads = std::vector<float>();
+    auto array_ignore_4 = std::vector<float>();
     auto packet_idx = 0;
     auto ele_count = 0;
     for (auto &e : state._header_data) {
@@ -398,82 +452,67 @@ int main() {
         auto number_of_quads =
             ((((0x1) * (p[66]))) + (((0x100) * (((0xFF) & (p[65]))))));
         auto ignore_4 = ((0xFF) & ((p[67]) >> (0)));
-        {
-          std::ofstream outfile;
-          outfile.open("./o_all.csv",
-                       ((std::ios_base::out) | (std::ios_base::app)));
-          if ((0) == (outfile.tellp())) {
-            (outfile)
-                << ("packet_version_number,packet_type,secondary_header_flag,"
-                    "application_process_id_process_id,application_process_id_"
-                    "packet_category,sequence_flags,sequence_count,data_length,"
-                    "coarse_time,fine_time,sync_marker,data_take_id,ecc_number,"
-                    "ignore_0,test_mode,rx_channel_id,instrument_configuration_"
-                    "id,sub_commutated_index,sub_commutated_data,space_packet_"
-                    "count,pri_count,error_flag,ignore_1,baq_mode,baq_block_"
-                    "length,ignore_2,range_decimation,rx_gain,tx_ramp_rate_"
-                    "polarity,tx_ramp_rate_magnitude,tx_pulse_start_frequency_"
-                    "polarity,tx_pulse_start_frequency_magnitude,tx_pulse_"
-                    "length,ignore_3,rank,pulse_repetition_interval,sampling_"
-                    "window_start_time,sampling_window_length,sab_ssb_"
-                    "calibration_p,sab_ssb_polarisation,sab_ssb_temp_comp,sab_"
-                    "ssb_ignore_0,sab_ssb_elevation_beam_address,sab_ssb_"
-                    "ignore_1,sab_ssb_azimuth_beam_address,ses_ssb_cal_mode,"
-                    "ses_ssb_ignore_0,ses_ssb_tx_pulse_number,ses_ssb_signal_"
-                    "type,ses_ssb_ignore_1,ses_ssb_swap,ses_ssb_swath_number,"
-                    "number_of_quads,ignore_4,azi,baq_n,baqmod,cal_iter,ele_"
-                    "count,cal_mode,cal_p,cal_type,data_delay,offset,packet_"
-                    "idx,pol,rgdec,rx,signal_type,swath,swl,swst,tstmod,txpl,"
-                    "txpl_,txprr,txprr_,txpsf")
-                << (std::endl);
-          }
-          (outfile) << (packet_version_number) << (",") << (packet_type)
-                    << (",") << (secondary_header_flag) << (",")
-                    << (application_process_id_process_id) << (",")
-                    << (application_process_id_packet_category) << (",")
-                    << (sequence_flags) << (",") << (sequence_count) << (",")
-                    << (data_length) << (",") << (coarse_time) << (",")
-                    << (fine_time) << (",") << (sync_marker) << (",")
-                    << (data_take_id) << (",") << (ecc_number) << (",")
-                    << (ignore_0) << (",") << (test_mode) << (",")
-                    << (rx_channel_id) << (",") << (instrument_configuration_id)
-                    << (",") << (sub_commutated_index) << (",")
-                    << (sub_commutated_data) << (",") << (space_packet_count)
-                    << (",") << (pri_count) << (",") << (error_flag) << (",")
-                    << (ignore_1) << (",") << (baq_mode) << (",")
-                    << (baq_block_length) << (",") << (ignore_2) << (",")
-                    << (range_decimation) << (",") << (rx_gain) << (",")
-                    << (tx_ramp_rate_polarity) << (",")
-                    << (tx_ramp_rate_magnitude) << (",")
-                    << (tx_pulse_start_frequency_polarity) << (",")
-                    << (tx_pulse_start_frequency_magnitude) << (",")
-                    << (tx_pulse_length) << (",") << (ignore_3) << (",")
-                    << (rank) << (",") << (pulse_repetition_interval) << (",")
-                    << (sampling_window_start_time) << (",")
-                    << (sampling_window_length) << (",")
-                    << (sab_ssb_calibration_p) << (",")
-                    << (sab_ssb_polarisation) << (",") << (sab_ssb_temp_comp)
-                    << (",") << (sab_ssb_ignore_0) << (",")
-                    << (sab_ssb_elevation_beam_address) << (",")
-                    << (sab_ssb_ignore_1) << (",")
-                    << (sab_ssb_azimuth_beam_address) << (",")
-                    << (ses_ssb_cal_mode) << (",") << (ses_ssb_ignore_0)
-                    << (",") << (ses_ssb_tx_pulse_number) << (",")
-                    << (ses_ssb_signal_type) << (",") << (ses_ssb_ignore_1)
-                    << (",") << (ses_ssb_swap) << (",")
-                    << (ses_ssb_swath_number) << (",") << (number_of_quads)
-                    << (",") << (ignore_4) << (",") << (azi) << (",") << (baq_n)
-                    << (",") << (baqmod) << (",") << (cal_iter) << (",")
-                    << (ele_count) << (",") << (cal_mode) << (",") << (cal_p)
-                    << (",") << (cal_type) << (",") << (data_delay) << (",")
-                    << (offset) << (",") << (packet_idx) << (",") << (pol)
-                    << (",") << (rgdec) << (",") << (rx) << (",")
-                    << (signal_type) << (",") << (swath) << (",") << (swl)
-                    << (",") << (swst) << (",") << (tstmod) << (",") << (txpl)
-                    << (",") << (txpl_) << (",") << (txprr) << (",") << (txprr_)
-                    << (",") << (txpsf) << (std::endl);
-          outfile.close();
-        }
+        array_packet_version_number.push_back(packet_version_number);
+        array_packet_type.push_back(packet_type);
+        array_secondary_header_flag.push_back(secondary_header_flag);
+        array_application_process_id_process_id.push_back(
+            application_process_id_process_id);
+        array_application_process_id_packet_category.push_back(
+            application_process_id_packet_category);
+        array_sequence_flags.push_back(sequence_flags);
+        array_sequence_count.push_back(sequence_count);
+        array_data_length.push_back(data_length);
+        array_coarse_time.push_back(coarse_time);
+        array_fine_time.push_back(fine_time);
+        array_sync_marker.push_back(sync_marker);
+        array_data_take_id.push_back(data_take_id);
+        array_ecc_number.push_back(ecc_number);
+        array_ignore_0.push_back(ignore_0);
+        array_test_mode.push_back(test_mode);
+        array_rx_channel_id.push_back(rx_channel_id);
+        array_instrument_configuration_id.push_back(
+            instrument_configuration_id);
+        array_sub_commutated_index.push_back(sub_commutated_index);
+        array_sub_commutated_data.push_back(sub_commutated_data);
+        array_space_packet_count.push_back(space_packet_count);
+        array_pri_count.push_back(pri_count);
+        array_error_flag.push_back(error_flag);
+        array_ignore_1.push_back(ignore_1);
+        array_baq_mode.push_back(baq_mode);
+        array_baq_block_length.push_back(baq_block_length);
+        array_ignore_2.push_back(ignore_2);
+        array_range_decimation.push_back(range_decimation);
+        array_rx_gain.push_back(rx_gain);
+        array_tx_ramp_rate_polarity.push_back(tx_ramp_rate_polarity);
+        array_tx_ramp_rate_magnitude.push_back(tx_ramp_rate_magnitude);
+        array_tx_pulse_start_frequency_polarity.push_back(
+            tx_pulse_start_frequency_polarity);
+        array_tx_pulse_start_frequency_magnitude.push_back(
+            tx_pulse_start_frequency_magnitude);
+        array_tx_pulse_length.push_back(tx_pulse_length);
+        array_ignore_3.push_back(ignore_3);
+        array_rank.push_back(rank);
+        array_pulse_repetition_interval.push_back(pulse_repetition_interval);
+        array_sampling_window_start_time.push_back(sampling_window_start_time);
+        array_sampling_window_length.push_back(sampling_window_length);
+        array_sab_ssb_calibration_p.push_back(sab_ssb_calibration_p);
+        array_sab_ssb_polarisation.push_back(sab_ssb_polarisation);
+        array_sab_ssb_temp_comp.push_back(sab_ssb_temp_comp);
+        array_sab_ssb_ignore_0.push_back(sab_ssb_ignore_0);
+        array_sab_ssb_elevation_beam_address.push_back(
+            sab_ssb_elevation_beam_address);
+        array_sab_ssb_ignore_1.push_back(sab_ssb_ignore_1);
+        array_sab_ssb_azimuth_beam_address.push_back(
+            sab_ssb_azimuth_beam_address);
+        array_ses_ssb_cal_mode.push_back(ses_ssb_cal_mode);
+        array_ses_ssb_ignore_0.push_back(ses_ssb_ignore_0);
+        array_ses_ssb_tx_pulse_number.push_back(ses_ssb_tx_pulse_number);
+        array_ses_ssb_signal_type.push_back(ses_ssb_signal_type);
+        array_ses_ssb_ignore_1.push_back(ses_ssb_ignore_1);
+        array_ses_ssb_swap.push_back(ses_ssb_swap);
+        array_ses_ssb_swath_number.push_back(ses_ssb_swath_number);
+        array_number_of_quads.push_back(number_of_quads);
+        array_ignore_4.push_back(ignore_4);
       }
       try {
         if (cal_p) {
@@ -573,10 +612,11 @@ int main() {
                     << (static_cast<int>(cal_p)) << ("::")
                     << (demangle(typeid(static_cast<int>(cal_p)).name()))
                     << ("'") << (std::endl) << (std::flush);
+        run_embedded_python();
       };
       (packet_idx)++;
     };
-    auto fn = ((std::string("/media/sdb4/sar/o_range")) + (std::to_string(n0)) +
+    auto fn = ((std::string("/dev/shm/o_range")) + (std::to_string(n0)) +
                (std::string("_echoes")) + (std::to_string(ele_number_echoes)) +
                (std::string(".cf")));
     auto file = std::ofstream(fn, std::ofstream::binary);
@@ -603,9 +643,9 @@ int main() {
                 << (std::flush);
   }
   delete[](sar_image);
-  auto fn = ((std::string("/media/sdb4/sar/o_cal_range")) +
-             (std::to_string(cal_n0)) + (std::string("_echoes")) +
-             (std::to_string(cal_count)) + (std::string(".cf")));
+  auto fn = ((std::string("/dev/shm/o_cal_range")) + (std::to_string(cal_n0)) +
+             (std::string("_echoes")) + (std::to_string(cal_count)) +
+             (std::string(".cf")));
   auto file = std::ofstream(fn, std::ofstream::binary);
   auto nbytes = ((cal_n0) * (cal_count) * (sizeof(std::complex<float>)));
 
