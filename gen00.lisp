@@ -413,7 +413,8 @@
       `(main ((_filename :direction 'out :type "char const *")
 	      (_map_ele :type "std::unordered_map<int,int>" )
 	      (_map_cal :type "std::unordered_map<int,int>" )
-	      (_map_sig :type "std::unordered_map<int,int>" ))
+	      (_map_sig :type "std::unordered_map<int,int>" )
+	      (_packet_header :type "std::unordered_map<std::string,std::vector<float>>" ))
 	     (do0
 	     (include <iostream>
 		       <chrono>
@@ -630,7 +631,7 @@
 					   ,@(loop for e in l and ec in l-c collect
 						   `(dot ,(format nil "array_~a" ec)
 							 (push_back ,ec)))
-					  
+					   
 					   #+nil ,(csvprint "./o_all.csv"
 							    `(
 							      ,@(loop for e in l and ec in l-c collect
@@ -758,7 +759,12 @@
 						  (e)
 						  ,(logprint "exception" `(packet_idx
 									   (static_cast<int> cal_p)))
-						  (run_embedded_python)
+						  (do0
+					    ,@(loop for e in l and ec in l-c collect
+						    `(setf (aref ,(g `_packet_header) (string ,ec))
+							   ,(format nil "array_~a" ec)
+							   ))
+					    (run_embedded_python))
 								      
 					;(assert 0)
 								      ))
@@ -2099,12 +2105,13 @@
 	 "namespace py = pybind11;"
 
 	 (space PYBIND11_EMBEDDED_MODULE
-		  (paren copernicus m)
+		  (paren sar m)
 		  (progn
 		    ,@(loop for e in `(_filename
 				       _start_time
 				       
-				       _map_ele)
+				       _map_ele
+				       _packet_header)
 			    collect
 			    `(setf (m.attr (string ,e)) ,(g e)))
 		    ))
@@ -2174,10 +2181,15 @@
 	  (defun run_embedded_python ()
 	    "py::scoped_interpreter guard{};"
 	    (py--exec (string-r "
+
 import IPython
-import copernicus
-print('hello')
-IPython.start_ipython()
+import IPython.Config
+c = IPython.Config()
+c.InteractiveShellApp.exec_lines = [
+    'import sar'
+]
+
+IPython.start_ipython(config=c)
 ")))
 	 )))
 

@@ -16,6 +16,7 @@ struct State {
   std::vector<std::array<uint8_t, 62 + 6>> _header_data;
   size_t _mmap_filesize;
   void *_mmap_data;
+  std::unordered_map<std::string, std::vector<float>> _packet_header;
   std::unordered_map<int, int> _map_sig;
   std::unordered_map<int, int> _map_cal;
   std::unordered_map<int, int> _map_ele;

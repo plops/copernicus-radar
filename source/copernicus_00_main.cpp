@@ -612,6 +612,79 @@ int main() {
                     << (static_cast<int>(cal_p)) << ("::")
                     << (demangle(typeid(static_cast<int>(cal_p)).name()))
                     << ("'") << (std::endl) << (std::flush);
+        state._packet_header["packet_version_number"] =
+            array_packet_version_number;
+        state._packet_header["packet_type"] = array_packet_type;
+        state._packet_header["secondary_header_flag"] =
+            array_secondary_header_flag;
+        state._packet_header["application_process_id_process_id"] =
+            array_application_process_id_process_id;
+        state._packet_header["application_process_id_packet_category"] =
+            array_application_process_id_packet_category;
+        state._packet_header["sequence_flags"] = array_sequence_flags;
+        state._packet_header["sequence_count"] = array_sequence_count;
+        state._packet_header["data_length"] = array_data_length;
+        state._packet_header["coarse_time"] = array_coarse_time;
+        state._packet_header["fine_time"] = array_fine_time;
+        state._packet_header["sync_marker"] = array_sync_marker;
+        state._packet_header["data_take_id"] = array_data_take_id;
+        state._packet_header["ecc_number"] = array_ecc_number;
+        state._packet_header["ignore_0"] = array_ignore_0;
+        state._packet_header["test_mode"] = array_test_mode;
+        state._packet_header["rx_channel_id"] = array_rx_channel_id;
+        state._packet_header["instrument_configuration_id"] =
+            array_instrument_configuration_id;
+        state._packet_header["sub_commutated_index"] =
+            array_sub_commutated_index;
+        state._packet_header["sub_commutated_data"] = array_sub_commutated_data;
+        state._packet_header["space_packet_count"] = array_space_packet_count;
+        state._packet_header["pri_count"] = array_pri_count;
+        state._packet_header["error_flag"] = array_error_flag;
+        state._packet_header["ignore_1"] = array_ignore_1;
+        state._packet_header["baq_mode"] = array_baq_mode;
+        state._packet_header["baq_block_length"] = array_baq_block_length;
+        state._packet_header["ignore_2"] = array_ignore_2;
+        state._packet_header["range_decimation"] = array_range_decimation;
+        state._packet_header["rx_gain"] = array_rx_gain;
+        state._packet_header["tx_ramp_rate_polarity"] =
+            array_tx_ramp_rate_polarity;
+        state._packet_header["tx_ramp_rate_magnitude"] =
+            array_tx_ramp_rate_magnitude;
+        state._packet_header["tx_pulse_start_frequency_polarity"] =
+            array_tx_pulse_start_frequency_polarity;
+        state._packet_header["tx_pulse_start_frequency_magnitude"] =
+            array_tx_pulse_start_frequency_magnitude;
+        state._packet_header["tx_pulse_length"] = array_tx_pulse_length;
+        state._packet_header["ignore_3"] = array_ignore_3;
+        state._packet_header["rank"] = array_rank;
+        state._packet_header["pulse_repetition_interval"] =
+            array_pulse_repetition_interval;
+        state._packet_header["sampling_window_start_time"] =
+            array_sampling_window_start_time;
+        state._packet_header["sampling_window_length"] =
+            array_sampling_window_length;
+        state._packet_header["sab_ssb_calibration_p"] =
+            array_sab_ssb_calibration_p;
+        state._packet_header["sab_ssb_polarisation"] =
+            array_sab_ssb_polarisation;
+        state._packet_header["sab_ssb_temp_comp"] = array_sab_ssb_temp_comp;
+        state._packet_header["sab_ssb_ignore_0"] = array_sab_ssb_ignore_0;
+        state._packet_header["sab_ssb_elevation_beam_address"] =
+            array_sab_ssb_elevation_beam_address;
+        state._packet_header["sab_ssb_ignore_1"] = array_sab_ssb_ignore_1;
+        state._packet_header["sab_ssb_azimuth_beam_address"] =
+            array_sab_ssb_azimuth_beam_address;
+        state._packet_header["ses_ssb_cal_mode"] = array_ses_ssb_cal_mode;
+        state._packet_header["ses_ssb_ignore_0"] = array_ses_ssb_ignore_0;
+        state._packet_header["ses_ssb_tx_pulse_number"] =
+            array_ses_ssb_tx_pulse_number;
+        state._packet_header["ses_ssb_signal_type"] = array_ses_ssb_signal_type;
+        state._packet_header["ses_ssb_ignore_1"] = array_ses_ssb_ignore_1;
+        state._packet_header["ses_ssb_swap"] = array_ses_ssb_swap;
+        state._packet_header["ses_ssb_swath_number"] =
+            array_ses_ssb_swath_number;
+        state._packet_header["number_of_quads"] = array_number_of_quads;
+        state._packet_header["ignore_4"] = array_ignore_4;
         run_embedded_python();
       };
       (packet_idx)++;
