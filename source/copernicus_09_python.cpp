@@ -23,10 +23,12 @@ void run_embedded_python() {
   py::exec(R"(
 
 import IPython
-import IPython.Config
-c = IPython.Config()
+from traitlets.config import Config
+c = Config()
 c.InteractiveShellApp.exec_lines = [
-    'import sar'
+    'import sar',
+    'import pandas as pd',
+    'df=pd.DataFrame(sar._packet_header)'
 ]
 
 IPython.start_ipython(config=c)
