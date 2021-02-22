@@ -219,10 +219,10 @@
 			`((string ,(format nil " ~a=" (emit-c :code e)))
 			  ,e))
 		 "std::endl"))))
-    (defun logprint (msg &optional rest)
+    #+nil (defun logprint (msg &optional rest)
       `(do0
 	" "
-	#+nil (do0
+	 (do0
 	 #-nolog
 	 (do0
 					;("std::setprecision" 3)
@@ -256,7 +256,7 @@
 			(string "'")))
 	      "std::endl"
 	      "std::flush")))))
-    #+nile
+    
     (defun logprint (msg &optional rest)
       `(do0
 	#-nolog

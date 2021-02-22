@@ -61,7 +61,19 @@ int main(int argc, char **argv) {
       (cal_count)++;
       (map_cal[((ele) & (7))])++;
       (state._map_cal[((ele) & (7))])++;
-
+      std::setprecision(3);
+      (std::cout) << (std::setw(10))
+                  << (((std::chrono::high_resolution_clock::now()
+                            .time_since_epoch()
+                            .count()) -
+                       (state._start_time)))
+                  << (" ") << (__FILE__) << (":") << (__LINE__) << (" ")
+                  << (__func__) << (" ") << ("cal") << (" ") << (std::setw(8))
+                  << (" cal_p=") << (cal_p) << (std::setw(8)) << (" cal_type=")
+                  << (cal_type) << (std::setw(8)) << (" number_of_quads=")
+                  << (number_of_quads) << (std::setw(8)) << (" baq_mode=")
+                  << (baq_mode) << (std::setw(8)) << (" test_mode=")
+                  << (test_mode) << (std::endl);
     } else {
       (map_ele[ele]) += (number_of_quads);
       (state._map_ele[ele]) += (number_of_quads);
@@ -71,10 +83,30 @@ int main(int argc, char **argv) {
   for (auto &cal : map_cal) {
     auto number_of_cal = cal.second;
     auto cal_type = cal.first;
+    std::setprecision(3);
+    (std::cout) << (std::setw(10))
+                << (((std::chrono::high_resolution_clock::now()
+                          .time_since_epoch()
+                          .count()) -
+                     (state._start_time)))
+                << (" ") << (__FILE__) << (":") << (__LINE__) << (" ")
+                << (__func__) << (" ") << ("map_ele") << (" ") << (std::setw(8))
+                << (" cal_type=") << (cal_type) << (std::setw(8))
+                << (" number_of_cal=") << (number_of_cal) << (std::endl);
   };
   for (auto &sig : map_sig) {
     auto number_of_sig = sig.second;
     auto sig_type = sig.first;
+    std::setprecision(3);
+    (std::cout) << (std::setw(10))
+                << (((std::chrono::high_resolution_clock::now()
+                          .time_since_epoch()
+                          .count()) -
+                     (state._start_time)))
+                << (" ") << (__FILE__) << (":") << (__LINE__) << (" ")
+                << (__func__) << (" ") << ("map_sig") << (" ") << (std::setw(8))
+                << (" sig_type=") << (sig_type) << (std::setw(8))
+                << (" number_of_sig=") << (number_of_sig) << (std::endl);
   };
   auto ma = (-1.0f);
   auto ma_ele = -1;
@@ -85,8 +117,29 @@ int main(int argc, char **argv) {
       ma = number_of_Mquads;
       ma_ele = elevation_beam_address;
     }
+    std::setprecision(3);
+    (std::cout) << (std::setw(10))
+                << (((std::chrono::high_resolution_clock::now()
+                          .time_since_epoch()
+                          .count()) -
+                     (state._start_time)))
+                << (" ") << (__FILE__) << (":") << (__LINE__) << (" ")
+                << (__func__) << (" ") << ("map_ele") << (" ") << (std::setw(8))
+                << (" elevation_beam_address=") << (elevation_beam_address)
+                << (std::setw(8)) << (" number_of_Mquads=")
+                << (number_of_Mquads) << (std::endl);
   };
-
+  std::setprecision(3);
+  (std::cout) << (std::setw(10))
+              << (((std::chrono::high_resolution_clock::now()
+                        .time_since_epoch()
+                        .count()) -
+                   (state._start_time)))
+              << (" ") << (__FILE__) << (":") << (__LINE__) << (" ")
+              << (__func__) << (" ") << ("largest ele") << (" ")
+              << (std::setw(8)) << (" ma_ele=") << (ma_ele) << (std::setw(8))
+              << (" ma=") << (ma) << (std::setw(8)) << (" cal_count=")
+              << (cal_count) << (std::endl);
   auto mi_data_delay = 10000000;
   auto ma_data_delay = -1;
   auto ma_data_end = -1;
@@ -122,17 +175,62 @@ int main(int argc, char **argv) {
       }
       (packet_idx)++;
     };
-
+    std::setprecision(3);
+    (std::cout) << (std::setw(10))
+                << (((std::chrono::high_resolution_clock::now()
+                          .time_since_epoch()
+                          .count()) -
+                     (state._start_time)))
+                << (" ") << (__FILE__) << (":") << (__LINE__) << (" ")
+                << (__func__) << (" ") << ("data_delay") << (" ")
+                << (std::setw(8)) << (" mi_data_delay=") << (mi_data_delay)
+                << (std::setw(8)) << (" ma_data_delay=") << (ma_data_delay)
+                << (std::setw(8)) << (" ma_data_end=") << (ma_data_end)
+                << (std::setw(8)) << (" ele_number_echoes=")
+                << (ele_number_echoes) << (std::endl);
     for (auto &azi : map_azi) {
       auto number_of_Mquads = ((azi.second) / ((1.0e+6f)));
       auto azi_beam_address = azi.first;
+      std::setprecision(3);
+      (std::cout) << (std::setw(10))
+                  << (((std::chrono::high_resolution_clock::now()
+                            .time_since_epoch()
+                            .count()) -
+                       (state._start_time)))
+                  << (" ") << (__FILE__) << (":") << (__LINE__) << (" ")
+                  << (__func__) << (" ") << ("map_azi") << (" ")
+                  << (std::setw(8)) << (" azi_beam_address=")
+                  << (azi_beam_address) << (std::setw(8))
+                  << (" number_of_Mquads=") << (number_of_Mquads)
+                  << (std::endl);
     };
   }
   ele_number_echoes = 10;
-
+  std::setprecision(3);
+  (std::cout) << (std::setw(10))
+              << (((std::chrono::high_resolution_clock::now()
+                        .time_since_epoch()
+                        .count()) -
+                   (state._start_time)))
+              << (" ") << (__FILE__) << (":") << (__LINE__) << (" ")
+              << (__func__) << (" ") << ("start big allocation") << (" ")
+              << (std::setw(8))
+              << (" ((ma_data_end)+(((ma_data_delay)-(mi_data_delay))))=")
+              << (((ma_data_end) + (((ma_data_delay) - (mi_data_delay)))))
+              << (std::setw(8)) << (" ele_number_echoes=")
+              << (ele_number_echoes) << (std::endl);
   auto n0 = ((ma_data_end) + (((ma_data_delay) - (mi_data_delay))));
   auto sar_image = new std::complex<float>[((n0) * (ele_number_echoes))];
-
+  std::setprecision(3);
+  (std::cout) << (std::setw(10))
+              << (((std::chrono::high_resolution_clock::now()
+                        .time_since_epoch()
+                        .count()) -
+                   (state._start_time)))
+              << (" ") << (__FILE__) << (":") << (__LINE__) << (" ")
+              << (__func__) << (" ") << ("end big allocation") << (" ")
+              << (std::setw(8)) << (" (((1.00e-6f))*(n0)*(ele_number_echoes))=")
+              << ((((1.00e-6f)) * (n0) * (ele_number_echoes))) << (std::endl);
   remove("./o_all.csv");
   remove("./o_range.csv");
   remove("./o_cal_range.csv");
@@ -430,6 +528,18 @@ int main(int argc, char **argv) {
                 ((sar_image) + (((((data_delay) - (mi_data_delay))) +
                                  (((n0) * (ele_count)))))));
             if (!((n) == (((2) * (number_of_quads))))) {
+              std::setprecision(3);
+              (std::cout) << (std::setw(10))
+                          << (((std::chrono::high_resolution_clock::now()
+                                    .time_since_epoch()
+                                    .count()) -
+                               (state._start_time)))
+                          << (" ") << (__FILE__) << (":") << (__LINE__) << (" ")
+                          << (__func__) << (" ")
+                          << ("unexpected number of quads") << (" ")
+                          << (std::setw(8)) << (" n=") << (n) << (std::setw(8))
+                          << (" number_of_quads=") << (number_of_quads)
+                          << (std::endl);
             }
             {
               std::ofstream outfile;
@@ -461,7 +571,17 @@ int main(int argc, char **argv) {
           }
         }
       } catch (std::out_of_range e) {
-
+        std::setprecision(3);
+        (std::cout) << (std::setw(10))
+                    << (((std::chrono::high_resolution_clock::now()
+                              .time_since_epoch()
+                              .count()) -
+                         (state._start_time)))
+                    << (" ") << (__FILE__) << (":") << (__LINE__) << (" ")
+                    << (__func__) << (" ") << ("exception") << (" ")
+                    << (std::setw(8)) << (" packet_idx=") << (packet_idx)
+                    << (std::setw(8)) << (" static_cast<int>(cal_p)=")
+                    << (static_cast<int>(cal_p)) << (std::endl);
         state._packet_header["packet_version_number"] =
             array_packet_version_number;
         state._packet_header["packet_type"] = array_packet_type;
@@ -544,8 +664,25 @@ int main(int argc, char **argv) {
                (std::string(".cf")));
     auto file = std::ofstream(fn, std::ofstream::binary);
     auto nbytes = ((n0) * (ele_number_echoes) * (sizeof(std::complex<float>)));
-
+    std::setprecision(3);
+    (std::cout) << (std::setw(10))
+                << (((std::chrono::high_resolution_clock::now()
+                          .time_since_epoch()
+                          .count()) -
+                     (state._start_time)))
+                << (" ") << (__FILE__) << (":") << (__LINE__) << (" ")
+                << (__func__) << (" ") << ("store echo") << (" ")
+                << (std::setw(8)) << (" nbytes=") << (nbytes) << (std::endl);
     file.write(reinterpret_cast<const char *>(sar_image), nbytes);
+    std::setprecision(3);
+    (std::cout) << (std::setw(10))
+                << (((std::chrono::high_resolution_clock::now()
+                          .time_since_epoch()
+                          .count()) -
+                     (state._start_time)))
+                << (" ") << (__FILE__) << (":") << (__LINE__) << (" ")
+                << (__func__) << (" ") << ("store echo finished") << (" ")
+                << (std::endl);
   }
   delete[](sar_image);
   auto fn = ((std::string("/dev/shm/o_cal_range")) + (std::to_string(cal_n0)) +
@@ -553,9 +690,25 @@ int main(int argc, char **argv) {
              (std::string(".cf")));
   auto file = std::ofstream(fn, std::ofstream::binary);
   auto nbytes = ((cal_n0) * (cal_count) * (sizeof(std::complex<float>)));
-
+  std::setprecision(3);
+  (std::cout) << (std::setw(10))
+              << (((std::chrono::high_resolution_clock::now()
+                        .time_since_epoch()
+                        .count()) -
+                   (state._start_time)))
+              << (" ") << (__FILE__) << (":") << (__LINE__) << (" ")
+              << (__func__) << (" ") << ("store cal") << (" ") << (std::setw(8))
+              << (" nbytes=") << (nbytes) << (std::endl);
   file.write(reinterpret_cast<const char *>(cal_image), nbytes);
-
+  std::setprecision(3);
+  (std::cout) << (std::setw(10))
+              << (((std::chrono::high_resolution_clock::now()
+                        .time_since_epoch()
+                        .count()) -
+                   (state._start_time)))
+              << (" ") << (__FILE__) << (":") << (__LINE__) << (" ")
+              << (__func__) << (" ") << ("store cal finished") << (" ")
+              << (std::endl);
   delete[](cal_image);
   destroy_mmap();
 }
