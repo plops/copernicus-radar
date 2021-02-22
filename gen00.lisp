@@ -16,7 +16,7 @@
 (setf *features* (union *features* '(:safety
 					;:nolog
 					;:log-brc
-				     ;:log-consume
+				     :log-consume
 				     )))
 (setf *features* (set-difference *features* '(;:safety
 					      :nolog
@@ -453,6 +453,7 @@
 		   (init_sub_commutated_data_decoder)
 		   (remove (string  "./o_anxillary.csv"))
 		   (foreach (e ,(g `_header_data))
+			    (comments "count number of packets in packet_idx. count number of calibration packets in cal_count. map_cal contains a histogram of elevation beam addresses in calibration packets. map_ele contains a count of quads for each elevation beam address.")
 			    (let ((offset (aref ,(g `_header_offset) packet_idx))
 				  (p (+ offset (static_cast<uint8_t*> ,(g `_mmap_data))))
 				  (cal_p ,(space-packet-slot-get 'sab-ssb-calibration-p 'p) )

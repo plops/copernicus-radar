@@ -30,12 +30,15 @@ void consume_padding_bits(sequential_bit_t *s) {
     // we are in an even byte
     if ((0) == (s->current_bit_count)) {
       // nothing to be done
+
     } else {
+
       (s->data) += (2);
       s->current_bit_count = 0;
     }
   } else {
     // we are in an odd byte
+
     (s->data) += (1);
     s->current_bit_count = 0;
   }

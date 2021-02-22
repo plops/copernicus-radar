@@ -35,6 +35,11 @@ int main(int argc, char **argv) {
   init_sub_commutated_data_decoder();
   remove("./o_anxillary.csv");
   for (auto &e : state._header_data) {
+    // count number of packets in packet_idx. count number of calibration
+    // packets in cal_count. map_cal contains a histogram of elevation beam
+    // addresses in calibration packets. map_ele contains a count of quads for
+    // each elevation beam address.
+    ;
     auto offset = state._header_offset[packet_idx];
     auto p = ((offset) + (static_cast<uint8_t *>(state._mmap_data)));
     auto cal_p = ((0x1) & ((p[59]) >> (7)));
