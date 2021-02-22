@@ -172,6 +172,14 @@ int main(int argc, char **argv) {
   {
     std::unordered_map<int, int> map_azi;
     auto packet_idx = 0;
+    // go through all packets and report the largest and smallest start sample
+    // for range data, the largest number of samples. also the number of
+    // recorded echoes is reported (data length in azimuth direction). this
+    // should be enough information to allocate a 2d array for all the raw data.
+    // output looks like this:
+    // data_delay  mi_data_delay=3548 ma_data_delay=3641 ma_data_end=25479
+    // ele_number_echoes=48141
+    ;
     for (auto &e : state._header_data) {
       auto offset = state._header_offset[packet_idx];
       auto p = ((offset) + (static_cast<uint8_t *>(state._mmap_data)));
