@@ -453,7 +453,7 @@
 		   (init_sub_commutated_data_decoder)
 		   (remove (string  "./o_anxillary.csv"))
 		   (foreach (e ,(g `_header_data))
-			    (comments "count number of packets in packet_idx. count number of calibration packets in cal_count. map_cal contains a histogram of elevation beam addresses in calibration packets. map_ele contains a count of quads for each elevation beam address.")
+			    (comments "count number of packets in packet_idx. map_sig contains histogram of signal_types (without distinction between calibration and signal packets). count number of calibration packets in cal_count. map_cal contains a histogram of calibration type in calibration packets. map_ele contains a count of quads for each elevation beam address.")
 			    (let ((offset (aref ,(g `_header_offset) packet_idx))
 				  (p (+ offset (static_cast<uint8_t*> ,(g `_mmap_data))))
 				  (cal_p ,(space-packet-slot-get 'sab-ssb-calibration-p 'p) )
@@ -476,19 +476,24 @@
 					       (logand ele #x7))
 					 )
 				   (incf (aref ,(g `_map_cal)
-						     (logand ele #x7)))
+					       (logand ele #x7)))
+				   (comments "print something like this:"
+					     "2809021335 ../copernicus_00_main.cpp:70 main cal   cal_p=1 cal_type=4 number_of_quads=2561 baq_mode=0 test_mode=0")
 				   ,(logprint "cal" `(cal_p cal_type number_of_quads baq_mode test_mode)))
 				  (do0
 				   (incf (aref map_ele ele) number_of_quads)
 				   (incf (aref ,(g `_map_ele) ele) number_of_quads)))
 			      (incf packet_idx)))
-
+		   
 		   (foreach (cal map_cal)
+			    (comments "print number of packets with each calibration type, like: cal_type=7 number_of_cal=116")
 			    (let ((number_of_cal cal.second)
 				  (cal_type cal.first))
-			      ,(logprint "map_ele" `(cal_type number_of_cal))))
+			      
+			      ,(logprint "map_cal" `(cal_type number_of_cal))))
 		   
 		   (foreach (sig map_sig)
+			    (comments "print histogram of signal packets, like: sig_type=0 number_of_sig=48125")
 			    (let ((number_of_sig sig.second)
 				  (sig_type sig.first))
 			      ,(logprint "map_sig" `(sig_type number_of_sig))))
@@ -502,8 +507,11 @@
 				(when (< ma number_of_Mquads)
 				  (setf ma number_of_Mquads
 					ma_ele elevation_beam_address))
+				(comments "show the number of quads for each elevation beam address, like: elevation_beam_address=2 number_of_Mquads=526.46")
 				,(logprint "map_ele" `(elevation_beam_address number_of_Mquads))))
-		     ,(logprint "largest ele" `(ma_ele ma cal_count)))
+		     (comments "show the elevation beam address with the largest number of acquired quads, like: ma_ele=2     ma=526.46")
+		     ,(logprint "largest ele" `(ma_ele ma))
+		     ,(logprint "calibrations" `(cal_count)))
 
 		   
 		   

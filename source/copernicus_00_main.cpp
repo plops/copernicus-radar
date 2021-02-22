@@ -35,10 +35,11 @@ int main(int argc, char **argv) {
   init_sub_commutated_data_decoder();
   remove("./o_anxillary.csv");
   for (auto &e : state._header_data) {
-    // count number of packets in packet_idx. count number of calibration
-    // packets in cal_count. map_cal contains a histogram of elevation beam
-    // addresses in calibration packets. map_ele contains a count of quads for
-    // each elevation beam address.
+    // count number of packets in packet_idx. map_sig contains histogram of
+    // signal_types (without distinction between calibration and signal
+    // packets). count number of calibration packets in cal_count. map_cal
+    // contains a histogram of calibration type in calibration packets. map_ele
+    // contains a count of quads for each elevation beam address.
     ;
     auto offset = state._header_offset[packet_idx];
     auto p = ((offset) + (static_cast<uint8_t *>(state._mmap_data)));
@@ -61,6 +62,10 @@ int main(int argc, char **argv) {
       (cal_count)++;
       (map_cal[((ele) & (7))])++;
       (state._map_cal[((ele) & (7))])++;
+      // print something like this:
+      // 2809021335 ../copernicus_00_main.cpp:70 main cal   cal_p=1 cal_type=4
+      // number_of_quads=2561 baq_mode=0 test_mode=0
+      ;
       std::setprecision(3);
       (std::cout) << (std::setw(10))
                   << (((std::chrono::high_resolution_clock::now()
@@ -81,6 +86,9 @@ int main(int argc, char **argv) {
     (packet_idx)++;
   };
   for (auto &cal : map_cal) {
+    // print number of packets with each calibration type, like: cal_type=7
+    // number_of_cal=116
+    ;
     auto number_of_cal = cal.second;
     auto cal_type = cal.first;
     std::setprecision(3);
@@ -90,11 +98,13 @@ int main(int argc, char **argv) {
                           .count()) -
                      (state._start_time)))
                 << (" ") << (__FILE__) << (":") << (__LINE__) << (" ")
-                << (__func__) << (" ") << ("map_ele") << (" ") << (std::setw(8))
+                << (__func__) << (" ") << ("map_cal") << (" ") << (std::setw(8))
                 << (" cal_type=") << (cal_type) << (std::setw(8))
                 << (" number_of_cal=") << (number_of_cal) << (std::endl);
   };
   for (auto &sig : map_sig) {
+    // print histogram of signal packets, like: sig_type=0 number_of_sig=48125
+    ;
     auto number_of_sig = sig.second;
     auto sig_type = sig.first;
     std::setprecision(3);
@@ -117,6 +127,9 @@ int main(int argc, char **argv) {
       ma = number_of_Mquads;
       ma_ele = elevation_beam_address;
     }
+    // show the number of quads for each elevation beam address, like:
+    // elevation_beam_address=2 number_of_Mquads=526.46
+    ;
     std::setprecision(3);
     (std::cout) << (std::setw(10))
                 << (((std::chrono::high_resolution_clock::now()
@@ -129,6 +142,9 @@ int main(int argc, char **argv) {
                 << (std::setw(8)) << (" number_of_Mquads=")
                 << (number_of_Mquads) << (std::endl);
   };
+  // show the elevation beam address with the largest number of acquired quads,
+  // like: ma_ele=2     ma=526.46
+  ;
   std::setprecision(3);
   (std::cout) << (std::setw(10))
               << (((std::chrono::high_resolution_clock::now()
@@ -138,8 +154,17 @@ int main(int argc, char **argv) {
               << (" ") << (__FILE__) << (":") << (__LINE__) << (" ")
               << (__func__) << (" ") << ("largest ele") << (" ")
               << (std::setw(8)) << (" ma_ele=") << (ma_ele) << (std::setw(8))
-              << (" ma=") << (ma) << (std::setw(8)) << (" cal_count=")
-              << (cal_count) << (std::endl);
+              << (" ma=") << (ma) << (std::endl);
+  std::setprecision(3);
+  (std::cout) << (std::setw(10))
+              << (((std::chrono::high_resolution_clock::now()
+                        .time_since_epoch()
+                        .count()) -
+                   (state._start_time)))
+              << (" ") << (__FILE__) << (":") << (__LINE__) << (" ")
+              << (__func__) << (" ") << ("calibrations") << (" ")
+              << (std::setw(8)) << (" cal_count=") << (cal_count)
+              << (std::endl);
   auto mi_data_delay = 10000000;
   auto ma_data_delay = -1;
   auto ma_data_end = -1;
