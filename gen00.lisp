@@ -528,6 +528,7 @@
 			(comments "go through all packets and report the largest and smallest start sample for range data, the largest number of samples. also the number of recorded echoes is reported (data length in azimuth direction). this should be enough information to allocate a 2d array for all the raw data."
 				  "output looks like this:"
 				  "data_delay  mi_data_delay=3548 ma_data_delay=3641 ma_data_end=25479 ele_number_echoes=48141")
+			(comments "map_azi counts the number of quads for each azimuth beam address.")
 			(foreach (e ,(g `_header_data))
 				 (let ((offset (aref ,(g `_header_offset) packet_idx))
 				       (p (+ offset (static_cast<uint8_t*> ,(g `_mmap_data))))
@@ -555,7 +556,11 @@
 				       (azi_beam_address azi.first))
 				   ,(logprint "map_azi" `(azi_beam_address number_of_Mquads)))))))))
 		(do0
+		 (comments "here would be the place to allocate a 2d array for all the azimuth x range samples."
+			   "i usually run into trouble here because i have not enough ram (or the decoder crashes).")
+		 
 		 (setf ele_number_echoes 10)
+		 
 		 ,(logprint "start big allocation" `((+ ma_data_end (- ma_data_delay mi_data_delay))
 						     ele_number_echoes))
 		 #+nil(do0

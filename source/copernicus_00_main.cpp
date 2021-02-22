@@ -180,6 +180,8 @@ int main(int argc, char **argv) {
     // data_delay  mi_data_delay=3548 ma_data_delay=3641 ma_data_end=25479
     // ele_number_echoes=48141
     ;
+    // map_azi counts the number of quads for each azimuth beam address.
+    ;
     for (auto &e : state._header_data) {
       auto offset = state._header_offset[packet_idx];
       auto p = ((offset) + (static_cast<uint8_t *>(state._mmap_data)));
@@ -238,6 +240,11 @@ int main(int argc, char **argv) {
                   << (std::endl);
     };
   }
+  // here would be the place to allocate a 2d array for all the azimuth x range
+  // samples.
+  // i usually run into trouble here because i have not enough ram (or the
+  // decoder crashes).
+  ;
   ele_number_echoes = 10;
   std::setprecision(3);
   (std::cout) << (std::setw(10))
