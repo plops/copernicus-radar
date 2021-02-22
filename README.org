@@ -1,0 +1,10 @@
+* Description
+
+This code is based on cl-cpp-generator2/example/08_copernicus_radar.
+The code was started in December 2020.
+
+I learned a bit more about how to split C++ code into modules and
+tried to apply this here.  Each cpp file also has a hpp file with
+classes and function definitions.
+
+I added a CMake based build system and attempted to embed Python.
