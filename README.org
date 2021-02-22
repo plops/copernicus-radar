@@ -11,13 +11,13 @@ I added a CMake based build system and attempted to embed Python.
 
 * Overview of my code bases related to synthetic aperture radar
 
-| start date | comment                                         | link                                                                               |   |   |   |
-|------------+-------------------------------------------------+------------------------------------------------------------------------------------+---+---+---|
-| Feb 2016   | OpenCL based focussing of ultrasound in k-space | not public ([1] and [2] are better)                                                |   |   |   |
-| Aug 2018   | Lisp prototye of parser                         | https://github.com/plops/satellite-plot                                            |   |   |   |
-| Nov 2019   | first c++ code                                  | https://github.com/plops/cl-cpp-generator2/tree/master/example/08_copernicus_radar |   |   |   |
-| Sep 2020   | GTK UI attempt                                  | https://github.com/plops/cl-cpp-generator2/tree/master/example/33_copernicus_gtk   |   |   |   |
-| Dec 2020   | separate C++ project, CMake, embedded python    | https://github.com/plops/copernicus-radar                                          |   |   |   |
+| start date | comment                                         | link                                                                               | 
+|------------+-------------------------------------------------+------------------------------------------------------------------------------------+
+| Feb 2016   | OpenCL based focussing of ultrasound in k-space | not public ([1] and [2] are better)                                                |
+| Aug 2018   | Lisp prototye of parser                         | https://github.com/plops/satellite-plot                                            |
+| Nov 2019   | first c++ code                                  | https://github.com/plops/cl-cpp-generator2/tree/master/example/08_copernicus_radar |
+| Sep 2020   | GTK UI attempt                                  | https://github.com/plops/cl-cpp-generator2/tree/master/example/33_copernicus_gtk   |
+| Dec 2020   | separate C++ project, CMake, embedded python    | https://github.com/plops/copernicus-radar                                          |
 
 * Compilation
 #+begin_example
