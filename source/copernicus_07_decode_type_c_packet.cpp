@@ -170,34 +170,11 @@ int init_decode_type_c_packet_baq3(int packet_idx,
                 v = ((symbol_sign) * (table_a3.at(thidx)));
               } else {
 
-                (std::cout)
-                    << (std::setw(10))
-                    << (std::chrono::high_resolution_clock::now()
-                            .time_since_epoch()
-                            .count())
-                    << (" ") << (std::this_thread::get_id()) << (" ")
-                    << (__FILE__) << (":") << (__LINE__) << (" ") << (__func__)
-                    << (" ") << ("mcode too large") << (" ") << (std::setw(8))
-                    << (" mcode='") << (mcode) << ("::")
-                    << (demangle(typeid(mcode).name())) << ("'") << (std::endl)
-                    << (std::flush);
                 assert(0);
               }
             }
           } catch (std::out_of_range e) {
 
-            (std::cout) << (std::setw(10))
-                        << (std::chrono::high_resolution_clock::now()
-                                .time_since_epoch()
-                                .count())
-                        << (" ") << (std::this_thread::get_id()) << (" ")
-                        << (__FILE__) << (":") << (__LINE__) << (" ")
-                        << (__func__) << (" ") << ("exception simple a=3")
-                        << (" ") << (std::setw(8)) << (" thidx='") << (thidx)
-                        << ("::") << (demangle(typeid(thidx).name())) << ("'")
-                        << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                        << ("::") << (demangle(typeid(packet_idx).name()))
-                        << ("'") << (std::endl) << (std::flush);
             assert(0);
           };
           decoded_qe_symbols_a[decoded_qe_symbols] = v;
@@ -222,19 +199,6 @@ int init_decode_type_c_packet_baq3(int packet_idx,
                  (table_sf.at(thidx)));
           } catch (std::out_of_range e) {
 
-            (std::cout) << (std::setw(10))
-                        << (std::chrono::high_resolution_clock::now()
-                                .time_since_epoch()
-                                .count())
-                        << (" ") << (std::this_thread::get_id()) << (" ")
-                        << (__FILE__) << (":") << (__LINE__) << (" ")
-                        << (__func__) << (" ")
-                        << ("exception normal nrl or sf ") << (" ")
-                        << (std::setw(8)) << (" thidx='") << (thidx) << ("::")
-                        << (demangle(typeid(thidx).name())) << ("'")
-                        << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                        << ("::") << (demangle(typeid(packet_idx).name()))
-                        << ("'") << (std::endl) << (std::flush);
             assert(0);
           };
           decoded_qe_symbols_a[decoded_qe_symbols] = v;
@@ -276,34 +240,11 @@ int init_decode_type_c_packet_baq3(int packet_idx,
                 v = ((symbol_sign) * (table_a3.at(thidx)));
               } else {
 
-                (std::cout)
-                    << (std::setw(10))
-                    << (std::chrono::high_resolution_clock::now()
-                            .time_since_epoch()
-                            .count())
-                    << (" ") << (std::this_thread::get_id()) << (" ")
-                    << (__FILE__) << (":") << (__LINE__) << (" ") << (__func__)
-                    << (" ") << ("mcode too large") << (" ") << (std::setw(8))
-                    << (" mcode='") << (mcode) << ("::")
-                    << (demangle(typeid(mcode).name())) << ("'") << (std::endl)
-                    << (std::flush);
                 assert(0);
               }
             }
           } catch (std::out_of_range e) {
 
-            (std::cout) << (std::setw(10))
-                        << (std::chrono::high_resolution_clock::now()
-                                .time_since_epoch()
-                                .count())
-                        << (" ") << (std::this_thread::get_id()) << (" ")
-                        << (__FILE__) << (":") << (__LINE__) << (" ")
-                        << (__func__) << (" ") << ("exception simple a=3")
-                        << (" ") << (std::setw(8)) << (" thidx='") << (thidx)
-                        << ("::") << (demangle(typeid(thidx).name())) << ("'")
-                        << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                        << ("::") << (demangle(typeid(packet_idx).name()))
-                        << ("'") << (std::endl) << (std::flush);
             assert(0);
           };
           decoded_qo_symbols_a[decoded_qo_symbols] = v;
@@ -328,19 +269,6 @@ int init_decode_type_c_packet_baq3(int packet_idx,
                  (table_sf.at(thidx)));
           } catch (std::out_of_range e) {
 
-            (std::cout) << (std::setw(10))
-                        << (std::chrono::high_resolution_clock::now()
-                                .time_since_epoch()
-                                .count())
-                        << (" ") << (std::this_thread::get_id()) << (" ")
-                        << (__FILE__) << (":") << (__LINE__) << (" ")
-                        << (__func__) << (" ")
-                        << ("exception normal nrl or sf ") << (" ")
-                        << (std::setw(8)) << (" thidx='") << (thidx) << ("::")
-                        << (demangle(typeid(thidx).name())) << ("'")
-                        << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                        << ("::") << (demangle(typeid(packet_idx).name()))
-                        << ("'") << (std::endl) << (std::flush);
             assert(0);
           };
           decoded_qo_symbols_a[decoded_qo_symbols] = v;
@@ -351,15 +279,6 @@ int init_decode_type_c_packet_baq3(int packet_idx,
   }
   consume_padding_bits(&s);
 
-  (std::cout)
-      << (std::setw(10))
-      << (std::chrono::high_resolution_clock::now().time_since_epoch().count())
-      << (" ") << (std::this_thread::get_id()) << (" ") << (__FILE__) << (":")
-      << (__LINE__) << (" ") << (__func__) << (" ")
-      << ("decode ie and io blocks") << (" ") << (std::setw(8))
-      << (" number_of_baq_blocks='") << (number_of_baq_blocks) << ("::")
-      << (demangle(typeid(number_of_baq_blocks).name())) << ("'") << (std::endl)
-      << (std::flush);
   for (auto block = 0; (block) < (number_of_baq_blocks); (block) += (1)) {
     auto thidx = thidxs[block];
 
@@ -383,37 +302,11 @@ int init_decode_type_c_packet_baq3(int packet_idx,
               v = ((symbol_sign) * (table_a3.at(thidx)));
             } else {
 
-              (std::cout) << (std::setw(10))
-                          << (std::chrono::high_resolution_clock::now()
-                                  .time_since_epoch()
-                                  .count())
-                          << (" ") << (std::this_thread::get_id()) << (" ")
-                          << (__FILE__) << (":") << (__LINE__) << (" ")
-                          << (__func__) << (" ") << ("mcode too large") << (" ")
-                          << (std::setw(8)) << (" mcode='") << (mcode) << ("::")
-                          << (demangle(typeid(mcode).name())) << ("'")
-                          << (std::endl) << (std::flush);
               assert(0);
             }
           }
         } catch (std::out_of_range e) {
 
-          (std::cout) << (std::setw(10))
-                      << (std::chrono::high_resolution_clock::now()
-                              .time_since_epoch()
-                              .count())
-                      << (" ") << (std::this_thread::get_id()) << (" ")
-                      << (__FILE__) << (":") << (__LINE__) << (" ")
-                      << (__func__) << (" ")
-                      << ("exception simple block=ie a=3") << (" ")
-                      << (std::setw(8)) << (" static_cast<int>(thidx)='")
-                      << (static_cast<int>(thidx)) << ("::")
-                      << (demangle(typeid(static_cast<int>(thidx)).name()))
-                      << ("'") << (std::setw(8)) << (" mcode='") << (mcode)
-                      << ("::") << (demangle(typeid(mcode).name())) << ("'")
-                      << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                      << ("::") << (demangle(typeid(packet_idx).name()))
-                      << ("'") << (std::endl) << (std::flush);
           assert(0);
         };
         decoded_ie_symbols_a[pos] = v;
@@ -433,35 +326,6 @@ int init_decode_type_c_packet_baq3(int packet_idx,
           v = ((symbol_sign) * (table_nrla3.at(mcode)) * (table_sf.at(thidx)));
         } catch (std::out_of_range e) {
 
-          (std::cout) << (std::setw(10))
-                      << (std::chrono::high_resolution_clock::now()
-                              .time_since_epoch()
-                              .count())
-                      << (" ") << (std::this_thread::get_id()) << (" ")
-                      << (__FILE__) << (":") << (__LINE__) << (" ")
-                      << (__func__) << (" ")
-                      << ("exception normal nrl or sf block=ie a=3") << (" ")
-                      << (std::setw(8)) << (" static_cast<int>(thidx)='")
-                      << (static_cast<int>(thidx)) << ("::")
-                      << (demangle(typeid(static_cast<int>(thidx)).name()))
-                      << ("'") << (std::setw(8)) << (" block='") << (block)
-                      << ("::") << (demangle(typeid(block).name())) << ("'")
-                      << (std::setw(8)) << (" i='") << (i) << ("::")
-                      << (demangle(typeid(i).name())) << ("'") << (std::setw(8))
-                      << (" mcode='") << (mcode) << ("::")
-                      << (demangle(typeid(mcode).name())) << ("'")
-                      << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                      << ("::") << (demangle(typeid(packet_idx).name()))
-                      << ("'") << (std::setw(8)) << (" pos='") << (pos)
-                      << ("::") << (demangle(typeid(pos).name())) << ("'")
-                      << (std::setw(8)) << (" scode='") << (scode) << ("::")
-                      << (demangle(typeid(scode).name())) << ("'")
-                      << (std::setw(8)) << (" symbol_sign='") << (symbol_sign)
-                      << ("::") << (demangle(typeid(symbol_sign).name()))
-                      << ("'") << (std::setw(8)) << (" decoded_ie_symbols='")
-                      << (decoded_ie_symbols) << ("::")
-                      << (demangle(typeid(decoded_ie_symbols).name())) << ("'")
-                      << (std::endl) << (std::flush);
           assert(0);
         };
         decoded_ie_symbols_a[pos] = v;
@@ -491,37 +355,11 @@ int init_decode_type_c_packet_baq3(int packet_idx,
               v = ((symbol_sign) * (table_a3.at(thidx)));
             } else {
 
-              (std::cout) << (std::setw(10))
-                          << (std::chrono::high_resolution_clock::now()
-                                  .time_since_epoch()
-                                  .count())
-                          << (" ") << (std::this_thread::get_id()) << (" ")
-                          << (__FILE__) << (":") << (__LINE__) << (" ")
-                          << (__func__) << (" ") << ("mcode too large") << (" ")
-                          << (std::setw(8)) << (" mcode='") << (mcode) << ("::")
-                          << (demangle(typeid(mcode).name())) << ("'")
-                          << (std::endl) << (std::flush);
               assert(0);
             }
           }
         } catch (std::out_of_range e) {
 
-          (std::cout) << (std::setw(10))
-                      << (std::chrono::high_resolution_clock::now()
-                              .time_since_epoch()
-                              .count())
-                      << (" ") << (std::this_thread::get_id()) << (" ")
-                      << (__FILE__) << (":") << (__LINE__) << (" ")
-                      << (__func__) << (" ")
-                      << ("exception simple block=io a=3") << (" ")
-                      << (std::setw(8)) << (" static_cast<int>(thidx)='")
-                      << (static_cast<int>(thidx)) << ("::")
-                      << (demangle(typeid(static_cast<int>(thidx)).name()))
-                      << ("'") << (std::setw(8)) << (" mcode='") << (mcode)
-                      << ("::") << (demangle(typeid(mcode).name())) << ("'")
-                      << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                      << ("::") << (demangle(typeid(packet_idx).name()))
-                      << ("'") << (std::endl) << (std::flush);
           assert(0);
         };
         decoded_io_symbols_a[pos] = v;
@@ -541,35 +379,6 @@ int init_decode_type_c_packet_baq3(int packet_idx,
           v = ((symbol_sign) * (table_nrla3.at(mcode)) * (table_sf.at(thidx)));
         } catch (std::out_of_range e) {
 
-          (std::cout) << (std::setw(10))
-                      << (std::chrono::high_resolution_clock::now()
-                              .time_since_epoch()
-                              .count())
-                      << (" ") << (std::this_thread::get_id()) << (" ")
-                      << (__FILE__) << (":") << (__LINE__) << (" ")
-                      << (__func__) << (" ")
-                      << ("exception normal nrl or sf block=io a=3") << (" ")
-                      << (std::setw(8)) << (" static_cast<int>(thidx)='")
-                      << (static_cast<int>(thidx)) << ("::")
-                      << (demangle(typeid(static_cast<int>(thidx)).name()))
-                      << ("'") << (std::setw(8)) << (" block='") << (block)
-                      << ("::") << (demangle(typeid(block).name())) << ("'")
-                      << (std::setw(8)) << (" i='") << (i) << ("::")
-                      << (demangle(typeid(i).name())) << ("'") << (std::setw(8))
-                      << (" mcode='") << (mcode) << ("::")
-                      << (demangle(typeid(mcode).name())) << ("'")
-                      << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                      << ("::") << (demangle(typeid(packet_idx).name()))
-                      << ("'") << (std::setw(8)) << (" pos='") << (pos)
-                      << ("::") << (demangle(typeid(pos).name())) << ("'")
-                      << (std::setw(8)) << (" scode='") << (scode) << ("::")
-                      << (demangle(typeid(scode).name())) << ("'")
-                      << (std::setw(8)) << (" symbol_sign='") << (symbol_sign)
-                      << ("::") << (demangle(typeid(symbol_sign).name()))
-                      << ("'") << (std::setw(8)) << (" decoded_io_symbols='")
-                      << (decoded_io_symbols) << ("::")
-                      << (demangle(typeid(decoded_io_symbols).name())) << ("'")
-                      << (std::endl) << (std::flush);
           assert(0);
         };
         decoded_io_symbols_a[pos] = v;
@@ -701,34 +510,11 @@ int init_decode_type_c_packet_baq4(int packet_idx,
                 v = ((symbol_sign) * (table_a4.at(thidx)));
               } else {
 
-                (std::cout)
-                    << (std::setw(10))
-                    << (std::chrono::high_resolution_clock::now()
-                            .time_since_epoch()
-                            .count())
-                    << (" ") << (std::this_thread::get_id()) << (" ")
-                    << (__FILE__) << (":") << (__LINE__) << (" ") << (__func__)
-                    << (" ") << ("mcode too large") << (" ") << (std::setw(8))
-                    << (" mcode='") << (mcode) << ("::")
-                    << (demangle(typeid(mcode).name())) << ("'") << (std::endl)
-                    << (std::flush);
                 assert(0);
               }
             }
           } catch (std::out_of_range e) {
 
-            (std::cout) << (std::setw(10))
-                        << (std::chrono::high_resolution_clock::now()
-                                .time_since_epoch()
-                                .count())
-                        << (" ") << (std::this_thread::get_id()) << (" ")
-                        << (__FILE__) << (":") << (__LINE__) << (" ")
-                        << (__func__) << (" ") << ("exception simple a=4")
-                        << (" ") << (std::setw(8)) << (" thidx='") << (thidx)
-                        << ("::") << (demangle(typeid(thidx).name())) << ("'")
-                        << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                        << ("::") << (demangle(typeid(packet_idx).name()))
-                        << ("'") << (std::endl) << (std::flush);
             assert(0);
           };
           decoded_qe_symbols_a[decoded_qe_symbols] = v;
@@ -753,19 +539,6 @@ int init_decode_type_c_packet_baq4(int packet_idx,
                  (table_sf.at(thidx)));
           } catch (std::out_of_range e) {
 
-            (std::cout) << (std::setw(10))
-                        << (std::chrono::high_resolution_clock::now()
-                                .time_since_epoch()
-                                .count())
-                        << (" ") << (std::this_thread::get_id()) << (" ")
-                        << (__FILE__) << (":") << (__LINE__) << (" ")
-                        << (__func__) << (" ")
-                        << ("exception normal nrl or sf ") << (" ")
-                        << (std::setw(8)) << (" thidx='") << (thidx) << ("::")
-                        << (demangle(typeid(thidx).name())) << ("'")
-                        << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                        << ("::") << (demangle(typeid(packet_idx).name()))
-                        << ("'") << (std::endl) << (std::flush);
             assert(0);
           };
           decoded_qe_symbols_a[decoded_qe_symbols] = v;
@@ -807,34 +580,11 @@ int init_decode_type_c_packet_baq4(int packet_idx,
                 v = ((symbol_sign) * (table_a4.at(thidx)));
               } else {
 
-                (std::cout)
-                    << (std::setw(10))
-                    << (std::chrono::high_resolution_clock::now()
-                            .time_since_epoch()
-                            .count())
-                    << (" ") << (std::this_thread::get_id()) << (" ")
-                    << (__FILE__) << (":") << (__LINE__) << (" ") << (__func__)
-                    << (" ") << ("mcode too large") << (" ") << (std::setw(8))
-                    << (" mcode='") << (mcode) << ("::")
-                    << (demangle(typeid(mcode).name())) << ("'") << (std::endl)
-                    << (std::flush);
                 assert(0);
               }
             }
           } catch (std::out_of_range e) {
 
-            (std::cout) << (std::setw(10))
-                        << (std::chrono::high_resolution_clock::now()
-                                .time_since_epoch()
-                                .count())
-                        << (" ") << (std::this_thread::get_id()) << (" ")
-                        << (__FILE__) << (":") << (__LINE__) << (" ")
-                        << (__func__) << (" ") << ("exception simple a=4")
-                        << (" ") << (std::setw(8)) << (" thidx='") << (thidx)
-                        << ("::") << (demangle(typeid(thidx).name())) << ("'")
-                        << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                        << ("::") << (demangle(typeid(packet_idx).name()))
-                        << ("'") << (std::endl) << (std::flush);
             assert(0);
           };
           decoded_qo_symbols_a[decoded_qo_symbols] = v;
@@ -859,19 +609,6 @@ int init_decode_type_c_packet_baq4(int packet_idx,
                  (table_sf.at(thidx)));
           } catch (std::out_of_range e) {
 
-            (std::cout) << (std::setw(10))
-                        << (std::chrono::high_resolution_clock::now()
-                                .time_since_epoch()
-                                .count())
-                        << (" ") << (std::this_thread::get_id()) << (" ")
-                        << (__FILE__) << (":") << (__LINE__) << (" ")
-                        << (__func__) << (" ")
-                        << ("exception normal nrl or sf ") << (" ")
-                        << (std::setw(8)) << (" thidx='") << (thidx) << ("::")
-                        << (demangle(typeid(thidx).name())) << ("'")
-                        << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                        << ("::") << (demangle(typeid(packet_idx).name()))
-                        << ("'") << (std::endl) << (std::flush);
             assert(0);
           };
           decoded_qo_symbols_a[decoded_qo_symbols] = v;
@@ -882,15 +619,6 @@ int init_decode_type_c_packet_baq4(int packet_idx,
   }
   consume_padding_bits(&s);
 
-  (std::cout)
-      << (std::setw(10))
-      << (std::chrono::high_resolution_clock::now().time_since_epoch().count())
-      << (" ") << (std::this_thread::get_id()) << (" ") << (__FILE__) << (":")
-      << (__LINE__) << (" ") << (__func__) << (" ")
-      << ("decode ie and io blocks") << (" ") << (std::setw(8))
-      << (" number_of_baq_blocks='") << (number_of_baq_blocks) << ("::")
-      << (demangle(typeid(number_of_baq_blocks).name())) << ("'") << (std::endl)
-      << (std::flush);
   for (auto block = 0; (block) < (number_of_baq_blocks); (block) += (1)) {
     auto thidx = thidxs[block];
 
@@ -914,37 +642,11 @@ int init_decode_type_c_packet_baq4(int packet_idx,
               v = ((symbol_sign) * (table_a4.at(thidx)));
             } else {
 
-              (std::cout) << (std::setw(10))
-                          << (std::chrono::high_resolution_clock::now()
-                                  .time_since_epoch()
-                                  .count())
-                          << (" ") << (std::this_thread::get_id()) << (" ")
-                          << (__FILE__) << (":") << (__LINE__) << (" ")
-                          << (__func__) << (" ") << ("mcode too large") << (" ")
-                          << (std::setw(8)) << (" mcode='") << (mcode) << ("::")
-                          << (demangle(typeid(mcode).name())) << ("'")
-                          << (std::endl) << (std::flush);
               assert(0);
             }
           }
         } catch (std::out_of_range e) {
 
-          (std::cout) << (std::setw(10))
-                      << (std::chrono::high_resolution_clock::now()
-                              .time_since_epoch()
-                              .count())
-                      << (" ") << (std::this_thread::get_id()) << (" ")
-                      << (__FILE__) << (":") << (__LINE__) << (" ")
-                      << (__func__) << (" ")
-                      << ("exception simple block=ie a=4") << (" ")
-                      << (std::setw(8)) << (" static_cast<int>(thidx)='")
-                      << (static_cast<int>(thidx)) << ("::")
-                      << (demangle(typeid(static_cast<int>(thidx)).name()))
-                      << ("'") << (std::setw(8)) << (" mcode='") << (mcode)
-                      << ("::") << (demangle(typeid(mcode).name())) << ("'")
-                      << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                      << ("::") << (demangle(typeid(packet_idx).name()))
-                      << ("'") << (std::endl) << (std::flush);
           assert(0);
         };
         decoded_ie_symbols_a[pos] = v;
@@ -964,35 +666,6 @@ int init_decode_type_c_packet_baq4(int packet_idx,
           v = ((symbol_sign) * (table_nrla4.at(mcode)) * (table_sf.at(thidx)));
         } catch (std::out_of_range e) {
 
-          (std::cout) << (std::setw(10))
-                      << (std::chrono::high_resolution_clock::now()
-                              .time_since_epoch()
-                              .count())
-                      << (" ") << (std::this_thread::get_id()) << (" ")
-                      << (__FILE__) << (":") << (__LINE__) << (" ")
-                      << (__func__) << (" ")
-                      << ("exception normal nrl or sf block=ie a=4") << (" ")
-                      << (std::setw(8)) << (" static_cast<int>(thidx)='")
-                      << (static_cast<int>(thidx)) << ("::")
-                      << (demangle(typeid(static_cast<int>(thidx)).name()))
-                      << ("'") << (std::setw(8)) << (" block='") << (block)
-                      << ("::") << (demangle(typeid(block).name())) << ("'")
-                      << (std::setw(8)) << (" i='") << (i) << ("::")
-                      << (demangle(typeid(i).name())) << ("'") << (std::setw(8))
-                      << (" mcode='") << (mcode) << ("::")
-                      << (demangle(typeid(mcode).name())) << ("'")
-                      << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                      << ("::") << (demangle(typeid(packet_idx).name()))
-                      << ("'") << (std::setw(8)) << (" pos='") << (pos)
-                      << ("::") << (demangle(typeid(pos).name())) << ("'")
-                      << (std::setw(8)) << (" scode='") << (scode) << ("::")
-                      << (demangle(typeid(scode).name())) << ("'")
-                      << (std::setw(8)) << (" symbol_sign='") << (symbol_sign)
-                      << ("::") << (demangle(typeid(symbol_sign).name()))
-                      << ("'") << (std::setw(8)) << (" decoded_ie_symbols='")
-                      << (decoded_ie_symbols) << ("::")
-                      << (demangle(typeid(decoded_ie_symbols).name())) << ("'")
-                      << (std::endl) << (std::flush);
           assert(0);
         };
         decoded_ie_symbols_a[pos] = v;
@@ -1022,37 +695,11 @@ int init_decode_type_c_packet_baq4(int packet_idx,
               v = ((symbol_sign) * (table_a4.at(thidx)));
             } else {
 
-              (std::cout) << (std::setw(10))
-                          << (std::chrono::high_resolution_clock::now()
-                                  .time_since_epoch()
-                                  .count())
-                          << (" ") << (std::this_thread::get_id()) << (" ")
-                          << (__FILE__) << (":") << (__LINE__) << (" ")
-                          << (__func__) << (" ") << ("mcode too large") << (" ")
-                          << (std::setw(8)) << (" mcode='") << (mcode) << ("::")
-                          << (demangle(typeid(mcode).name())) << ("'")
-                          << (std::endl) << (std::flush);
               assert(0);
             }
           }
         } catch (std::out_of_range e) {
 
-          (std::cout) << (std::setw(10))
-                      << (std::chrono::high_resolution_clock::now()
-                              .time_since_epoch()
-                              .count())
-                      << (" ") << (std::this_thread::get_id()) << (" ")
-                      << (__FILE__) << (":") << (__LINE__) << (" ")
-                      << (__func__) << (" ")
-                      << ("exception simple block=io a=4") << (" ")
-                      << (std::setw(8)) << (" static_cast<int>(thidx)='")
-                      << (static_cast<int>(thidx)) << ("::")
-                      << (demangle(typeid(static_cast<int>(thidx)).name()))
-                      << ("'") << (std::setw(8)) << (" mcode='") << (mcode)
-                      << ("::") << (demangle(typeid(mcode).name())) << ("'")
-                      << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                      << ("::") << (demangle(typeid(packet_idx).name()))
-                      << ("'") << (std::endl) << (std::flush);
           assert(0);
         };
         decoded_io_symbols_a[pos] = v;
@@ -1072,35 +719,6 @@ int init_decode_type_c_packet_baq4(int packet_idx,
           v = ((symbol_sign) * (table_nrla4.at(mcode)) * (table_sf.at(thidx)));
         } catch (std::out_of_range e) {
 
-          (std::cout) << (std::setw(10))
-                      << (std::chrono::high_resolution_clock::now()
-                              .time_since_epoch()
-                              .count())
-                      << (" ") << (std::this_thread::get_id()) << (" ")
-                      << (__FILE__) << (":") << (__LINE__) << (" ")
-                      << (__func__) << (" ")
-                      << ("exception normal nrl or sf block=io a=4") << (" ")
-                      << (std::setw(8)) << (" static_cast<int>(thidx)='")
-                      << (static_cast<int>(thidx)) << ("::")
-                      << (demangle(typeid(static_cast<int>(thidx)).name()))
-                      << ("'") << (std::setw(8)) << (" block='") << (block)
-                      << ("::") << (demangle(typeid(block).name())) << ("'")
-                      << (std::setw(8)) << (" i='") << (i) << ("::")
-                      << (demangle(typeid(i).name())) << ("'") << (std::setw(8))
-                      << (" mcode='") << (mcode) << ("::")
-                      << (demangle(typeid(mcode).name())) << ("'")
-                      << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                      << ("::") << (demangle(typeid(packet_idx).name()))
-                      << ("'") << (std::setw(8)) << (" pos='") << (pos)
-                      << ("::") << (demangle(typeid(pos).name())) << ("'")
-                      << (std::setw(8)) << (" scode='") << (scode) << ("::")
-                      << (demangle(typeid(scode).name())) << ("'")
-                      << (std::setw(8)) << (" symbol_sign='") << (symbol_sign)
-                      << ("::") << (demangle(typeid(symbol_sign).name()))
-                      << ("'") << (std::setw(8)) << (" decoded_io_symbols='")
-                      << (decoded_io_symbols) << ("::")
-                      << (demangle(typeid(decoded_io_symbols).name())) << ("'")
-                      << (std::endl) << (std::flush);
           assert(0);
         };
         decoded_io_symbols_a[pos] = v;
@@ -1232,34 +850,11 @@ int init_decode_type_c_packet_baq5(int packet_idx,
                 v = ((symbol_sign) * (table_a5.at(thidx)));
               } else {
 
-                (std::cout)
-                    << (std::setw(10))
-                    << (std::chrono::high_resolution_clock::now()
-                            .time_since_epoch()
-                            .count())
-                    << (" ") << (std::this_thread::get_id()) << (" ")
-                    << (__FILE__) << (":") << (__LINE__) << (" ") << (__func__)
-                    << (" ") << ("mcode too large") << (" ") << (std::setw(8))
-                    << (" mcode='") << (mcode) << ("::")
-                    << (demangle(typeid(mcode).name())) << ("'") << (std::endl)
-                    << (std::flush);
                 assert(0);
               }
             }
           } catch (std::out_of_range e) {
 
-            (std::cout) << (std::setw(10))
-                        << (std::chrono::high_resolution_clock::now()
-                                .time_since_epoch()
-                                .count())
-                        << (" ") << (std::this_thread::get_id()) << (" ")
-                        << (__FILE__) << (":") << (__LINE__) << (" ")
-                        << (__func__) << (" ") << ("exception simple a=5")
-                        << (" ") << (std::setw(8)) << (" thidx='") << (thidx)
-                        << ("::") << (demangle(typeid(thidx).name())) << ("'")
-                        << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                        << ("::") << (demangle(typeid(packet_idx).name()))
-                        << ("'") << (std::endl) << (std::flush);
             assert(0);
           };
           decoded_qe_symbols_a[decoded_qe_symbols] = v;
@@ -1284,19 +879,6 @@ int init_decode_type_c_packet_baq5(int packet_idx,
                  (table_sf.at(thidx)));
           } catch (std::out_of_range e) {
 
-            (std::cout) << (std::setw(10))
-                        << (std::chrono::high_resolution_clock::now()
-                                .time_since_epoch()
-                                .count())
-                        << (" ") << (std::this_thread::get_id()) << (" ")
-                        << (__FILE__) << (":") << (__LINE__) << (" ")
-                        << (__func__) << (" ")
-                        << ("exception normal nrl or sf ") << (" ")
-                        << (std::setw(8)) << (" thidx='") << (thidx) << ("::")
-                        << (demangle(typeid(thidx).name())) << ("'")
-                        << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                        << ("::") << (demangle(typeid(packet_idx).name()))
-                        << ("'") << (std::endl) << (std::flush);
             assert(0);
           };
           decoded_qe_symbols_a[decoded_qe_symbols] = v;
@@ -1338,34 +920,11 @@ int init_decode_type_c_packet_baq5(int packet_idx,
                 v = ((symbol_sign) * (table_a5.at(thidx)));
               } else {
 
-                (std::cout)
-                    << (std::setw(10))
-                    << (std::chrono::high_resolution_clock::now()
-                            .time_since_epoch()
-                            .count())
-                    << (" ") << (std::this_thread::get_id()) << (" ")
-                    << (__FILE__) << (":") << (__LINE__) << (" ") << (__func__)
-                    << (" ") << ("mcode too large") << (" ") << (std::setw(8))
-                    << (" mcode='") << (mcode) << ("::")
-                    << (demangle(typeid(mcode).name())) << ("'") << (std::endl)
-                    << (std::flush);
                 assert(0);
               }
             }
           } catch (std::out_of_range e) {
 
-            (std::cout) << (std::setw(10))
-                        << (std::chrono::high_resolution_clock::now()
-                                .time_since_epoch()
-                                .count())
-                        << (" ") << (std::this_thread::get_id()) << (" ")
-                        << (__FILE__) << (":") << (__LINE__) << (" ")
-                        << (__func__) << (" ") << ("exception simple a=5")
-                        << (" ") << (std::setw(8)) << (" thidx='") << (thidx)
-                        << ("::") << (demangle(typeid(thidx).name())) << ("'")
-                        << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                        << ("::") << (demangle(typeid(packet_idx).name()))
-                        << ("'") << (std::endl) << (std::flush);
             assert(0);
           };
           decoded_qo_symbols_a[decoded_qo_symbols] = v;
@@ -1390,19 +949,6 @@ int init_decode_type_c_packet_baq5(int packet_idx,
                  (table_sf.at(thidx)));
           } catch (std::out_of_range e) {
 
-            (std::cout) << (std::setw(10))
-                        << (std::chrono::high_resolution_clock::now()
-                                .time_since_epoch()
-                                .count())
-                        << (" ") << (std::this_thread::get_id()) << (" ")
-                        << (__FILE__) << (":") << (__LINE__) << (" ")
-                        << (__func__) << (" ")
-                        << ("exception normal nrl or sf ") << (" ")
-                        << (std::setw(8)) << (" thidx='") << (thidx) << ("::")
-                        << (demangle(typeid(thidx).name())) << ("'")
-                        << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                        << ("::") << (demangle(typeid(packet_idx).name()))
-                        << ("'") << (std::endl) << (std::flush);
             assert(0);
           };
           decoded_qo_symbols_a[decoded_qo_symbols] = v;
@@ -1413,15 +959,6 @@ int init_decode_type_c_packet_baq5(int packet_idx,
   }
   consume_padding_bits(&s);
 
-  (std::cout)
-      << (std::setw(10))
-      << (std::chrono::high_resolution_clock::now().time_since_epoch().count())
-      << (" ") << (std::this_thread::get_id()) << (" ") << (__FILE__) << (":")
-      << (__LINE__) << (" ") << (__func__) << (" ")
-      << ("decode ie and io blocks") << (" ") << (std::setw(8))
-      << (" number_of_baq_blocks='") << (number_of_baq_blocks) << ("::")
-      << (demangle(typeid(number_of_baq_blocks).name())) << ("'") << (std::endl)
-      << (std::flush);
   for (auto block = 0; (block) < (number_of_baq_blocks); (block) += (1)) {
     auto thidx = thidxs[block];
 
@@ -1445,37 +982,11 @@ int init_decode_type_c_packet_baq5(int packet_idx,
               v = ((symbol_sign) * (table_a5.at(thidx)));
             } else {
 
-              (std::cout) << (std::setw(10))
-                          << (std::chrono::high_resolution_clock::now()
-                                  .time_since_epoch()
-                                  .count())
-                          << (" ") << (std::this_thread::get_id()) << (" ")
-                          << (__FILE__) << (":") << (__LINE__) << (" ")
-                          << (__func__) << (" ") << ("mcode too large") << (" ")
-                          << (std::setw(8)) << (" mcode='") << (mcode) << ("::")
-                          << (demangle(typeid(mcode).name())) << ("'")
-                          << (std::endl) << (std::flush);
               assert(0);
             }
           }
         } catch (std::out_of_range e) {
 
-          (std::cout) << (std::setw(10))
-                      << (std::chrono::high_resolution_clock::now()
-                              .time_since_epoch()
-                              .count())
-                      << (" ") << (std::this_thread::get_id()) << (" ")
-                      << (__FILE__) << (":") << (__LINE__) << (" ")
-                      << (__func__) << (" ")
-                      << ("exception simple block=ie a=5") << (" ")
-                      << (std::setw(8)) << (" static_cast<int>(thidx)='")
-                      << (static_cast<int>(thidx)) << ("::")
-                      << (demangle(typeid(static_cast<int>(thidx)).name()))
-                      << ("'") << (std::setw(8)) << (" mcode='") << (mcode)
-                      << ("::") << (demangle(typeid(mcode).name())) << ("'")
-                      << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                      << ("::") << (demangle(typeid(packet_idx).name()))
-                      << ("'") << (std::endl) << (std::flush);
           assert(0);
         };
         decoded_ie_symbols_a[pos] = v;
@@ -1495,35 +1006,6 @@ int init_decode_type_c_packet_baq5(int packet_idx,
           v = ((symbol_sign) * (table_nrla5.at(mcode)) * (table_sf.at(thidx)));
         } catch (std::out_of_range e) {
 
-          (std::cout) << (std::setw(10))
-                      << (std::chrono::high_resolution_clock::now()
-                              .time_since_epoch()
-                              .count())
-                      << (" ") << (std::this_thread::get_id()) << (" ")
-                      << (__FILE__) << (":") << (__LINE__) << (" ")
-                      << (__func__) << (" ")
-                      << ("exception normal nrl or sf block=ie a=5") << (" ")
-                      << (std::setw(8)) << (" static_cast<int>(thidx)='")
-                      << (static_cast<int>(thidx)) << ("::")
-                      << (demangle(typeid(static_cast<int>(thidx)).name()))
-                      << ("'") << (std::setw(8)) << (" block='") << (block)
-                      << ("::") << (demangle(typeid(block).name())) << ("'")
-                      << (std::setw(8)) << (" i='") << (i) << ("::")
-                      << (demangle(typeid(i).name())) << ("'") << (std::setw(8))
-                      << (" mcode='") << (mcode) << ("::")
-                      << (demangle(typeid(mcode).name())) << ("'")
-                      << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                      << ("::") << (demangle(typeid(packet_idx).name()))
-                      << ("'") << (std::setw(8)) << (" pos='") << (pos)
-                      << ("::") << (demangle(typeid(pos).name())) << ("'")
-                      << (std::setw(8)) << (" scode='") << (scode) << ("::")
-                      << (demangle(typeid(scode).name())) << ("'")
-                      << (std::setw(8)) << (" symbol_sign='") << (symbol_sign)
-                      << ("::") << (demangle(typeid(symbol_sign).name()))
-                      << ("'") << (std::setw(8)) << (" decoded_ie_symbols='")
-                      << (decoded_ie_symbols) << ("::")
-                      << (demangle(typeid(decoded_ie_symbols).name())) << ("'")
-                      << (std::endl) << (std::flush);
           assert(0);
         };
         decoded_ie_symbols_a[pos] = v;
@@ -1553,37 +1035,11 @@ int init_decode_type_c_packet_baq5(int packet_idx,
               v = ((symbol_sign) * (table_a5.at(thidx)));
             } else {
 
-              (std::cout) << (std::setw(10))
-                          << (std::chrono::high_resolution_clock::now()
-                                  .time_since_epoch()
-                                  .count())
-                          << (" ") << (std::this_thread::get_id()) << (" ")
-                          << (__FILE__) << (":") << (__LINE__) << (" ")
-                          << (__func__) << (" ") << ("mcode too large") << (" ")
-                          << (std::setw(8)) << (" mcode='") << (mcode) << ("::")
-                          << (demangle(typeid(mcode).name())) << ("'")
-                          << (std::endl) << (std::flush);
               assert(0);
             }
           }
         } catch (std::out_of_range e) {
 
-          (std::cout) << (std::setw(10))
-                      << (std::chrono::high_resolution_clock::now()
-                              .time_since_epoch()
-                              .count())
-                      << (" ") << (std::this_thread::get_id()) << (" ")
-                      << (__FILE__) << (":") << (__LINE__) << (" ")
-                      << (__func__) << (" ")
-                      << ("exception simple block=io a=5") << (" ")
-                      << (std::setw(8)) << (" static_cast<int>(thidx)='")
-                      << (static_cast<int>(thidx)) << ("::")
-                      << (demangle(typeid(static_cast<int>(thidx)).name()))
-                      << ("'") << (std::setw(8)) << (" mcode='") << (mcode)
-                      << ("::") << (demangle(typeid(mcode).name())) << ("'")
-                      << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                      << ("::") << (demangle(typeid(packet_idx).name()))
-                      << ("'") << (std::endl) << (std::flush);
           assert(0);
         };
         decoded_io_symbols_a[pos] = v;
@@ -1603,35 +1059,6 @@ int init_decode_type_c_packet_baq5(int packet_idx,
           v = ((symbol_sign) * (table_nrla5.at(mcode)) * (table_sf.at(thidx)));
         } catch (std::out_of_range e) {
 
-          (std::cout) << (std::setw(10))
-                      << (std::chrono::high_resolution_clock::now()
-                              .time_since_epoch()
-                              .count())
-                      << (" ") << (std::this_thread::get_id()) << (" ")
-                      << (__FILE__) << (":") << (__LINE__) << (" ")
-                      << (__func__) << (" ")
-                      << ("exception normal nrl or sf block=io a=5") << (" ")
-                      << (std::setw(8)) << (" static_cast<int>(thidx)='")
-                      << (static_cast<int>(thidx)) << ("::")
-                      << (demangle(typeid(static_cast<int>(thidx)).name()))
-                      << ("'") << (std::setw(8)) << (" block='") << (block)
-                      << ("::") << (demangle(typeid(block).name())) << ("'")
-                      << (std::setw(8)) << (" i='") << (i) << ("::")
-                      << (demangle(typeid(i).name())) << ("'") << (std::setw(8))
-                      << (" mcode='") << (mcode) << ("::")
-                      << (demangle(typeid(mcode).name())) << ("'")
-                      << (std::setw(8)) << (" packet_idx='") << (packet_idx)
-                      << ("::") << (demangle(typeid(packet_idx).name()))
-                      << ("'") << (std::setw(8)) << (" pos='") << (pos)
-                      << ("::") << (demangle(typeid(pos).name())) << ("'")
-                      << (std::setw(8)) << (" scode='") << (scode) << ("::")
-                      << (demangle(typeid(scode).name())) << ("'")
-                      << (std::setw(8)) << (" symbol_sign='") << (symbol_sign)
-                      << ("::") << (demangle(typeid(symbol_sign).name()))
-                      << ("'") << (std::setw(8)) << (" decoded_io_symbols='")
-                      << (decoded_io_symbols) << ("::")
-                      << (demangle(typeid(decoded_io_symbols).name())) << ("'")
-                      << (std::endl) << (std::flush);
           assert(0);
         };
         decoded_io_symbols_a[pos] = v;

@@ -222,39 +222,40 @@
     (defun logprint (msg &optional rest)
       `(do0
 	" "
-	#-nolog
-	(do0
+	#+nil (do0
+	 #-nolog
+	 (do0
 					;("std::setprecision" 3)
-	 (<< "std::cout"
-	     ;;"std::endl"
-	     ("std::setw" 10)
-	     (dot ("std::chrono::high_resolution_clock::now")
-		  (time_since_epoch)
-		  (count))
+	  (<< "std::cout"
+	      ;;"std::endl"
+	      ("std::setw" 10)
+	      (dot ("std::chrono::high_resolution_clock::now")
+		   (time_since_epoch)
+		   (count))
 					;,(g `_start_time)
-	     
-	     (string " ")
-	     ("std::this_thread::get_id")
-	     (string " ")
-	     __FILE__
-	     (string ":")
-	     __LINE__
-	     (string " ")
-	     __func__
-	     (string " ")
-	     (string ,msg)
-	     (string " ")
-	     ,@(loop for e in rest appending
-		    `(("std::setw" 8)
+	      
+	      (string " ")
+	      ("std::this_thread::get_id")
+	      (string " ")
+	      __FILE__
+	      (string ":")
+	      __LINE__
+	      (string " ")
+	      __func__
+	      (string " ")
+	      (string ,msg)
+	      (string " ")
+	      ,@(loop for e in rest appending
+		      `(("std::setw" 8)
 					;("std::width" 8)
-		      (string ,(format nil " ~a='" (emit-c :code e)))
-		      ,e
-		      (string "::")
-		      (demangle (dot (typeid ,e)
-			    (name)))
-		      (string "'")))
-	     "std::endl"
-	     "std::flush"))))
+			(string ,(format nil " ~a='" (emit-c :code e)))
+			,e
+			(string "::")
+			(demangle (dot (typeid ,e)
+				       (name)))
+			(string "'")))
+	      "std::endl"
+	      "std::flush")))))
     #+nile
     (defun logprint (msg &optional rest)
       `(do0
@@ -767,7 +768,8 @@
 						    `(setf (aref ,(g `_packet_header) (string ,ec))
 							   ,(format nil "array_~a" ec)
 							   ))
-					    (run_embedded_python))
+					    (run_embedded_python)
+					    )
 								      
 					;(assert 0)
 								      ))
@@ -2365,7 +2367,7 @@ IPython.start_ipython(config=c)
 	(out "project( mytest LANGUAGES CXX )")
 	(out "set( CMAKE_VERBOSE_MAKEFILE ON )")
 	;; -Og -ggdb3
-	(out "set( CMAKE_CXX_FLAGS \"-O2 -pipe -march=native -mtune=native\")")
+	(out "set( CMAKE_CXX_FLAGS \"-Og -ggdb3 -pipe -march=native -mtune=native\")")
 	(out "set( CMAKE_CXX_STANDARD 14 )")
 	;(out "set( CMAKE_CXX_COMPILER clang++ )")
 	(out "find_package( Python COMPONENTS Interpreter Development REQUIRED )")
