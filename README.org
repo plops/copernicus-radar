@@ -9,6 +9,16 @@ classes and function definitions.
 
 I added a CMake based build system and attempted to embed Python.
 
+* Overview of my code bases related to synthetic aperture radar
+
+| start date | comment                                         | link                                                                               |   |   |   |
+|------------+-------------------------------------------------+------------------------------------------------------------------------------------+---+---+---|
+| Feb 2016   | OpenCL based focussing of ultrasound in k-space | not public ([1] and [2] are better)                                                |   |   |   |
+| Aug 2018   | Lisp prototye of parser                         | https://github.com/plops/satellite-plot                                            |   |   |   |
+| Nov 2019   | first c++ code                                  | https://github.com/plops/cl-cpp-generator2/tree/master/example/08_copernicus_radar |   |   |   |
+| Sep 2020   | GTK UI attempt                                  | https://github.com/plops/cl-cpp-generator2/tree/master/example/33_copernicus_gtk   |   |   |   |
+| Dec 2020   | separate C++ project, CMake, embedded python    | https://github.com/plops/copernicus-radar                                          |   |   |   |
+
 * Compilation
 #+begin_example
 cd source
@@ -29,3 +39,9 @@ https://scihub.copernicus.eu/dhus/odata/v1/Products(%278034f2a7-0e1c-4270-82dc-0
 cd source/build
 ./mytest ~/Downloads/s1a-s3-raw-s-hh-20210221t213548-20210221t213613-036693-044fed.dat
 #+end_example
+
+
+* References
+
+[1] https://hforsten.com/synthetic-aperture-radar-imaging.html
+[2] https://hforsten.com/third-version-of-homemade-6-ghz-fmcw-radar.html
