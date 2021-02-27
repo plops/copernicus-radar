@@ -402,7 +402,7 @@
 						,module-code))
 		*module*))
 	(loop for par in global-parameters do
-	     (destructuring-bind (parameter-name
+ 	     (destructuring-bind (parameter-name
 				  &key (direction 'in)
 				  (type 'int)
 				  (default nil)) par
