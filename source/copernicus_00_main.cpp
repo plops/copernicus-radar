@@ -24,7 +24,12 @@ State state = {};
 int main(int argc, char **argv) {
   state._start_time =
       std::chrono::high_resolution_clock::now().time_since_epoch().count();
-  state._filename = argv[1];
+  state._filename =
+      "/home/martin/Downloads/"
+      "s1a-s3-raw-s-hh-20210221t213548-20210221t213613-036693-044fed.dat";
+  if ((2) == (argc)) {
+    state._filename = argv[1];
+  }
   init_mmap(state._filename);
   init_collect_packet_headers();
   auto packet_idx = 0;

@@ -437,9 +437,12 @@
 					     (count)))
 					;(vkprint "main" )
 		(setf ,(g `_filename)
-		      (aref argv 1)
-		      #+nil (string
-		       "/home/martin/s1a-s3-raw-s-hh-20201024t213552-20201024t213617-034943-041338.dat")) 
+		      (string "/home/martin/Downloads/s1a-s3-raw-s-hh-20210221t213548-20210221t213613-036693-044fed.dat" ))
+		(when (== 2 argc)
+		 (setf ,(g `_filename)
+		       (aref argv 1)
+		       #+nil (string
+			      "/home/martin/s1a-s3-raw-s-hh-20201024t213552-20201024t213617-034943-041338.dat"))) 
 		(init_mmap ,(g `_filename))
 		(init_collect_packet_headers) 
 					;(init_process_packet_headers)
@@ -1126,8 +1129,9 @@
 		,(logprint "brc out of range" `(s->current_bit_count
 						(- s->data (static_cast<uint8_t*> ,(g `_mmap_data)))
 						brc))
+		(assert 0)
 		(throw ("std::out_of_range" (string "brc")))
-		;(assert 0)
+		
 		)
 	      (return brc)))
 	   )

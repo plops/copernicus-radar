@@ -60,6 +60,7 @@ inline int get_bit_rate_code(sequential_bit_t *s) {
                 << (" ((s->data)-(static_cast<uint8_t*>(state._mmap_data)))=")
                 << (((s->data) - (static_cast<uint8_t *>(state._mmap_data))))
                 << (std::setw(8)) << (" brc=") << (brc) << (std::endl);
+    assert(0);
     throw std::out_of_range("brc");
   }
   return brc;
