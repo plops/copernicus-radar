@@ -559,7 +559,7 @@
 		 (comments "here would be the place to allocate a 2d array for all the azimuth x range samples."
 			   "i usually run into trouble here because i have not enough ram (or the decoder crashes).")
 		 
-		 (setf ele_number_echoes 10)
+		 (setf ele_number_echoes 512)
 		 
 		 ,(logprint "start big allocation" `((+ ma_data_end (- ma_data_delay mi_data_delay))
 						     ele_number_echoes))
@@ -724,7 +724,6 @@
 							  txprr
 							  txprr_
 							  txpsf
-
 							  ))
 					     (incf cal_iter))
 					    (when (== ele ma_ele)
@@ -785,7 +784,7 @@
 						    `(setf (aref ,(g `_packet_header) (string ,ec))
 							   ,(format nil "array_~a" ec)
 							   ))
-					    (run_embedded_python)
+					   #+nil (run_embedded_python)
 					    )
 								      
 					;(assert 0)

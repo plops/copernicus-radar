@@ -245,7 +245,7 @@ int main(int argc, char **argv) {
   // i usually run into trouble here because i have not enough ram (or the
   // decoder crashes).
   ;
-  ele_number_echoes = 10;
+  ele_number_echoes = 512;
   std::setprecision(3);
   (std::cout) << (std::setw(10))
               << (((std::chrono::high_resolution_clock::now()
@@ -695,7 +695,6 @@ int main(int argc, char **argv) {
             array_ses_ssb_swath_number;
         state._packet_header["number_of_quads"] = array_number_of_quads;
         state._packet_header["ignore_4"] = array_ignore_4;
-        run_embedded_python();
       };
       (packet_idx)++;
     };
